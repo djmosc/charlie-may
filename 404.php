@@ -2,8 +2,8 @@
 /**
  * The template for displaying 404 pages (Not Found).
  *
- * @package gbteddybear
- * @since gbteddybear 1.0
+ * @package charlie_may
+ * @since charlie_may 1.0
  */
 
 get_header(); ?>

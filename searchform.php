@@ -1,12 +1,11 @@
 <?php
 /**
- * The template for displaying search forms in gbteddybear
+ * The template for displaying search forms in charlie_may
  *
- * @package gbteddybear
- * @since gbteddybear 1.0
+ * @package charlie_may
+ * @since charlie_may 1.0
  */
 ?>
-	<form method="get" id="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>" role="search">
-		<input type="text" class="field" name="s" placeholder="SEARCH" value="<?php echo esc_attr( get_search_query() ); ?>" />
-		<input type="submit" class="submit" value="&raquo;" />
+	<form method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>" role="search">
+		<input type="text" class="field" name="s" placeholder="SEARCH" value="<?php echo esc_attr( get_search_query() ); ?>" /><button type="submit" class="submit" ><i class="icon-search" ></i></button>
 	</form>

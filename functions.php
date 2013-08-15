@@ -1,18 +1,19 @@
 <?php
 /**
- * gbteddybear functions and definitions
+ * charlie_may functions and definitions
  *
- * @package gbteddybear
- * @since gbteddybear 1.0
+ * @package charlie_may
+ * @since charlie_may 1.0
  */
 
 /**
  * Set the content width based on the theme's design and stylesheet.
  *
- * @since gbteddybear 1.0
+ * @since charlie_may 1.0
  */
+define('THEME_NAME', 'charlie_may');
 
-if ( ! function_exists( 'gbteddybear_setup' ) ):
+if ( ! function_exists( 'charlie_may_setup' ) ):
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  *
@@ -20,26 +21,19 @@ if ( ! function_exists( 'gbteddybear_setup' ) ):
  * before the init hook. The init hook is too late for some features, such as indicating
  * support post thumbnails.
  *
- * @since gbteddybear 1.0
+ * @since charlie_may 1.0
  */
-function gbteddybear_setup() {
+function charlie_may_setup() {
 	global $woocommerce;
-
-	require( get_template_directory() . '/inc/custom_post_type.php' );
 
 	require( get_template_directory() . '/inc/shortcodes.php' );
 
 	require( get_template_directory() . '/inc/options.php' );
 
-	require( get_template_directory() . '/inc/widgets/woocommerce-country-select.php' );
-
-	require( get_template_directory() . '/inc/widgets/twitter/twitter-feed.php' );
-
-
 	/**
 	 * Make theme available for translation
 	 * Translations can be filed in the /languages/ directory
-	 * If you're building a theme based on gbteddybear, use a find and replace
+	 * If you're building a theme based on charlie_may, use a find and replace
 	 * to change THEME_NAME to the name of your theme in all the template files
 	 */
 	//load_theme_textdomain( THEME_NAME, get_template_directory() . '/languages' );
@@ -58,13 +52,14 @@ function gbteddybear_setup() {
 	 * This theme uses wp_nav_menu() in one location.
 	 */
 	register_nav_menus( array(
-		'primary_header' => __( 'Primary Menu', THEME_NAME ),
-		'primary_footer' => __( 'Footer Menu', THEME_NAME )
+		'primary' => __( 'Primary Menu', THEME_NAME ),
+		'footer' => __( 'Footer Menu', THEME_NAME )
 	) );
 
-	add_image_size( 'custom_large', 530, 650, true);
-	add_image_size( 'custom_medium', 380, 250, true);
-	add_image_size( 'custom_thumbnail', 210, 9999);
+	// add_image_size( 'custom_large', 530, 650, true);
+	add_image_size( 'custom_medium', 500, 750, true);
+	// add_image_size( 'custom_thumbnail', 210, 9999);
+	add_image_size( 'slide', 1200, 600, true);
 	
 	add_filter('jpeg_quality', function($arg){return 100;});
 
@@ -107,42 +102,6 @@ function gbteddybear_setup() {
 
 	add_filter('widget_text', 'do_shortcode');
 
-
-	$photo = new Custom_Post_Type( 'Photo', 
- 		array(
- 			'rewrite' => array( 'with_front' => false, 'slug' => get_page_uri(get_gbteddybear_option('gallery_page_id')) ),
- 			'capability_type' => 'post',
- 		 	'publicly_queryable' => true,
-   			'has_archive' => true, 
-    		'hierarchical' => false,
-    		'exclude_from_search' => true,
-    		'menu_position' => null,
-    		'supports' => array('title', 'thumbnail', 'page-attributes'),
-    		'plural' => 'Photos'
-   		)
-   	);
-
-
-	$celebrity_bear = new Custom_Post_Type( 'Celebrity Bear', 
- 		array(
- 			'rewrite' => array( 'with_front' => false, 'slug' => get_page_uri(get_gbteddybear_option('celebrity_bear_page_id')) ),
- 			'capability_type' => 'post',
- 		 	'publicly_queryable' => true,
-   			'has_archive' => true, 
-    		'hierarchical' => false,
-    		'exclude_from_search' => true,
-    		'menu_position' => null,
-    		'supports' => array('title', 'thumbnail', 'page-attributes'),
-    		'plural' => 'Celebrity Bears'
-   		)
-   	);
-
-	
- 	//global $wp_rewrite;
-	//$wp_rewrite->flush_rules();
-	//add_rewrite_rule('case-studies/([^/]+)?', 'index.php?post_type=true&work=$matches[1]', 'top');
-   	//$shop->add_taxonomy('Shop Category', array('hierarchical' => true), array('plural' => 'Shop Categories'));
-
 	add_editor_style('css/editor-styles.css');
 
 	add_filter("gform_tabindex", create_function("", "return false;"));
@@ -150,22 +109,48 @@ function gbteddybear_setup() {
 	add_theme_support('woocommerce');  
 
 }
-endif; // gbteddybear_setup
+endif; // charlie_may_setup
 
-add_action( 'after_setup_theme', 'gbteddybear_setup' );
+add_action( 'after_setup_theme', 'charlie_may_setup' );
+
+add_action('init', 'set_custom_post_types');
+
+if(!function_exists('set_custom_post_types')) {
+	function set_custom_post_types(){
+		require( get_template_directory() . '/inc/custom_post_type.php' );
+		if(function_exists('get_field')) {
+			$collections_page = get_field('collections_page', 'options');
+			$collection = new Custom_Post_Type( 'Collection', 
+		 		array(
+		 			'rewrite' => array( 'with_front' => false, 'slug' => get_page_uri($collections_page->ID) ),
+		 			'capability_type' => 'post',
+		 		 	'publicly_queryable' => true,
+		   			'has_archive' => true, 
+		    		'hierarchical' => false,
+		    		'exclude_from_search' => true,
+		    		'menu_position' => null,
+		    		'supports' => array('title', 'thumbnail', 'editor', 'page-attributes'),
+		    		'plural' => 'Collections'
+		   		)
+		   	);
+
+		   	$collection->add_taxonomy('Season', array('hierarchical' => true), array('plural' => 'Seasons'));
+		}
+	}
+}
 
 
 /**
  * Register widgetized area and update sidebar with default widgets
  *
- * @since gbteddybear 1.0
+ * @since charlie_may 1.0
  */
-function gbteddybear_widgets_init() {
+function charlie_may_widgets_init() {
 
 	/********************** Sidebars ***********************/
 
 	register_sidebar( array(
-		'name' => __( 'Default Sidebar', THEME_NAME ),
+		'name' => __( 'Shop Sidebar', THEME_NAME ),
 		'id' => 'default',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget' => '</aside>',
@@ -173,30 +158,19 @@ function gbteddybear_widgets_init() {
 		'after_title' => '</h4>',
 	) );
 
-	register_sidebar( array(
-		'name' => __( 'Footer', THEME_NAME ),
-		'id' => 'footer',
-		'before_widget' => '<aside id="%1$s" class="widget span two equal-height %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h5 class="widget-title">',
-		'after_title' => '</h5>',
-	) );
-
 	/********************** Content ***********************/
 
 	register_sidebar( array(
-		'name' => __( 'Homepage Content', THEME_NAME ),
+		'name' => __( 'Homepage Content', 'gbteddybear' ),
 		'id' => 'homepage_content',
 		'before_widget' => '<aside id="%1$s" class="widget span one-third %2$s">',
 		'after_widget' => '</div></aside>',
-		'before_title' => '<h5 class="widget-title text-center light-brown uppercase">',
+		'before_title' => '<h5 class="widget-title">',
 		'after_title' => '</h5><div class="inner equal-height">',
 	) );
-
-
 }
 
-add_action( 'widgets_init', 'gbteddybear_widgets_init' );
+add_action( 'widgets_init', 'charlie_may_widgets_init' );
 
 
 if ( ! function_exists( 'get_top_level_category' )) {
@@ -261,8 +235,8 @@ function get_the_adjacent_fukn_post($adjacent, $post_type = 'post', $category = 
 	return $new_post;
 }
 
-function get_gbteddybear_option($option){
-	$options = get_option('gbteddybear_theme_options');
+function get_charlie_may_option($option){
+	$options = get_option('charlie_may_theme_options');
 	return $options[$option];
 }
 
@@ -686,7 +660,7 @@ if ( ! function_exists( 'custom_product_related_posts' ) ) {
 			$terms = $args['tax_query'][0]['terms'];
 			$args['tax_query'][0]['terms'] = array();
 			foreach($terms as $term){
-				if($term != get_gbteddybear_option('all_bears_category_id')){
+				if($term != get_charlie_may_option('all_bears_category_id')){
 					$args['tax_query'][0]['terms'][] = $term;
 				}
 			}
@@ -709,7 +683,7 @@ add_filter( 'woocommerce_stock_html', 'custom_stock_html', 1 );
 
 if ( ! function_exists( 'custom_stock_html' ) ) {
 	function custom_stock_html($availability){
-		return str_replace('Out of stock', 'Sorry this item is currently unavailable.</p><p class="small">If you would like to preorder please contact <a href="'.get_permalink(get_gbteddybear_option('customer_service_page_id')).'">Customer Service</a>', $availability);
+		return str_replace('Out of stock', 'Sorry this item is currently unavailable.</p><p class="small">If you would like to preorder please contact <a href="'.get_permalink(get_charlie_may_option('customer_service_page_id')).'">Customer Service</a>', $availability);
 	}
 }
 
@@ -720,7 +694,7 @@ if ( ! function_exists( 'woocommerce_ready' ) ) {
 	function woocommerce_ready(){
 		global $woocommerce;
 		if ($woocommerce->cart->cart_contents_count > 24){
-			$woocommerce->add_error(__('Sorry, it seems that there are no available shipping methods for your location.<br />If you require assistance or wish to make alternate arrangements please contact <a href="'.get_permalink(get_gbteddybear_option('customer_service_page_id')).'">customer service</a>.'));
+			$woocommerce->add_error(__('Sorry, it seems that there are no available shipping methods for your location.<br />If you require assistance or wish to make alternate arrangements please contact <a href="'.get_permalink(get_charlie_may_option('customer_service_page_id')).'">customer service</a>.'));
 		}
 	}
 }
@@ -739,5 +713,52 @@ if ( ! function_exists( 'mark_emails_as_read' ) ) {
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50 );
 add_action( 'woocommerce_after_product_images', 'woocommerce_template_single_sharing', 30);
 
+add_action('acf/options_page/settings','custom_options_pages');
+
+if ( ! function_exists( 'custom_options_pages' )) { 
+	function custom_options_pages($options){
+		$options['title'] = __('Options');
+		$options['pages'] = array(
+			__('General'),
+			__('Header'),
+			__('Footer')
+		);
+
+		return $options;
+	}
+}
+
+add_filter('gform_submit_button', 'custom_submit_button', 10, 2);
+
+if ( ! function_exists( 'custom_submit_button' )) { 
+	function custom_submit_button($button_input, $form){
+		$form_id = $form["id"];
+		$button_input_id = "gform_submit_button_{$form["id"]}";
+		$button = $form["button"];
+		$default_text = __("Submit", "gravityforms");
+		$class = "button gform_button";
+		$alt = __("Submit", "gravityforms");
+		$target_page_number = 0;
+
+		$tabindex = GFCommon::get_tabindex();
+        $input_type='submit';
+        $onclick="";
+        if(!empty($target_page_number)){
+            $onclick = "onclick='jQuery(\"#gform_target_page_number_{$form_id}\").val(\"{$target_page_number}\"); jQuery(\"#gform_{$form_id}\").trigger(\"submit\",[true]); '";
+            $input_type='button';
+        }
+
+        if($button["type"] == "text" || empty($button["imageUrl"])){
+            $button_text = !empty($button["text"]) ? $button["text"] : $default_text;
+            $button_input = "<button type='{$input_type}' id='{$button_input_id}' class='{$class}' {$tabindex} {$onclick}>" . esc_attr($button_text) . "</button>";
+        }
+        else{
+            $imageUrl = $button["imageUrl"];
+            $button_input= "<button type='image' src='{$imageUrl}' id='{$button_input_id}' class='gform_image_button' alt='{$alt}' {$tabindex} {$onclick}/>";
+        }
+
+        return $button_input;
+	}
+}
 
 //remove_action( 'woocommerce_share', array( $WC_ShareThis, 'sharethis_code' ) );

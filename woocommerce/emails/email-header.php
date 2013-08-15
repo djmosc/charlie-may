@@ -75,7 +75,7 @@ $header_content_h1 = "
 	text-align:left;
 	line-height: 150%;
 	border-bottom: 1px solid #ececec;
-	background: url(". get_bloginfo('template_url')."/images/logos/gbteddybear_email.jpg) no-repeat 24px center;
+	background: url(". get_bloginfo('template_url')."/images/logos/charlie_may_email.jpg) no-repeat 24px center;
 ";
 ?>
 <html>

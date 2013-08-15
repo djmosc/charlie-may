@@ -184,19 +184,22 @@
 				$('.scroller-pagination a', scroller).on('click', function(e){
 					e.preventDefault();
 					gotoItem($(this).data('id'));
+					canAutoScroll = false;
 					return false;
 				});
 				
-				$('.prev-btn', scroller).on('click', gotoPrevItem);
-				$('.next-btn', scroller).on('click', gotoNextItem);
+				$('.prev-btn', scroller).on('click', function(){
+					gotoPrevItem()
+					canAutoScroll = false;
+				});
+				$('.next-btn', scroller).on('click', function(){
+					gotoNextItem()
+					canAutoScroll = false;
+				});
 
 				if(options.autoScroll){
 					var scrollInterval;
-					scroller.hover(function(){
-						canAutoScroll = false;
-					}, function(){
-						canAutoScroll = true;
-					});
+					
 					scrollInterval = setInterval(function(){
 						if(canAutoScroll) gotoNextItem()
 					}, 4000);

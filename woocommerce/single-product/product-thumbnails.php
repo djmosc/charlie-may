@@ -90,7 +90,7 @@ global $post, $product, $woocommerce;
 	if($threesixty_images):
 	?>
 	<li>
-		<a href="http://localhost/gbteddybear/website/build/shop/the-veteran/" data-id="360" class="overlay-btn">
+		<a href="http://localhost/charlie_may/website/build/shop/the-veteran/" data-id="360" class="overlay-btn">
 			<img src="<?php echo get_template_directory_uri(); ?>/images/misc/360_view.jpg" />
 		</a>
 	</li>

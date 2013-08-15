@@ -40,9 +40,9 @@ get_header('shop'); ?>
 					$term = get_term_by('slug', get_query_var('product_cat'), 'product_cat');
 					$term_id = (isset($term->term_id)) ? $term->term_id : null;
 					?>
-					<?php if($term_id != get_gbteddybear_option('all_bears_category_id') && !is_shop()): ?>
+					<?php if($term_id != get_charlie_may_option('all_bears_category_id') && !is_shop()): ?>
 					<div class="span three hide-on-mobile">
-						<a href="<?php echo get_term_link((int) get_gbteddybear_option('all_bears_category_id'), 'product_cat'); ?>" class="show-all-bears-btn">Show all bears</a>
+						<a href="<?php echo get_term_link((int) get_charlie_may_option('all_bears_category_id'), 'product_cat'); ?>" class="show-all-bears-btn">Show all bears</a>
 					</div>
 					<?php endif; ?>
 				</div>
@@ -79,7 +79,7 @@ get_header('shop'); ?>
 			<?php endif; ?>
 			<?php if(!is_shop()): ?>
 			<header class="line-header"><h5 class="title"><?php _e("More Great British Teddy Bears", THEME_NAME); ?></h5></header>
-			<?php woocommerce_product_categories(array('before' => '<ul class="categories clearfix">', 'after' => '</ul>', 'exclude' => get_gbteddybear_option('all_bears_category_id'), 'woocommerce_loop' => array('columns' => 4))); ?>
+			<?php woocommerce_product_categories(array('before' => '<ul class="categories clearfix">', 'after' => '</ul>', 'exclude' => get_charlie_may_option('all_bears_category_id'), 'woocommerce_loop' => array('columns' => 4))); ?>
 			<?php endif; ?>
 		<?php elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
 

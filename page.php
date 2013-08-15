@@ -7,8 +7,8 @@
  * and that other 'pages' on your WordPress site will use a
  * different template.
  *
- * @package gbteddybear
- * @since gbteddybear 1.0
+ * @package charlie_may
+ * @since charlie_may 1.0
  */
 
 get_header(); ?>

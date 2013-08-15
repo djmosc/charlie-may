@@ -6,71 +6,26 @@
 	@include arial;
 }
 
-@mixin crimson {
-	font-family: 'Crimson Text', TimesNewRoman, 'Times New Roman', Times, Baskerville, Georgia, serif;
-	font-weight: 400;
-	font-style: normal;
+@mixin din {
+	font-family: 'DINNextLTW01-UltraLight 706122', Arial, Helvetica, sans-serif;
 }
 
-.crimson {
-	@include crimson;
+.din {
+	@include din;
 }
 
-@mixin crimson-bold {
-	font-family: 'Crimson Text', TimesNewRoman, 'Times New Roman', Times, Baskerville, Georgia, serif;
-	font-weight: 700;
-	font-style: normal;
+@mixin avenir {
+	font-family: 'Avenir LT W01 55 Roman', Arial, Helvetica, sans-serif;
 }
 
-
-.crimson-bold {
-	@include crimson-bold;
+.avenir {
+	@include avenir;
 }
 
-@mixin crimson-italic {
-	font-family: 'Crimson Text', TimesNewRoman, 'Times New Roman', Times, Baskerville, Georgia, serif;
-	font-weight: 400;
-	font-style: italic;
+@mixin novecento {
+	font-family: 'Novecento W00 Wide Bold', Arial, Helvetica, sans-serif;
 }
 
-
-.crimson-italic {
-	@include crimson-italic;
+.novecento {
+	@include novecento;
 }
-
-@mixin didot {
-	font-family: Didot, 'Didot LT STD', 'Didot W01 Roman', 'Hoefler Text', Garamond, 'Times New Roman', serif;
-	font-weight: normal;
-	font-style: normal;
-}
-
-
-.didot {
-	@include didot;
-}
-
-
-@mixin yanone-kaffeesatz-bold {
-	font-family: 'Yanone Kaffeesatz', sans-serif;
-	font-weight: normal;
-	font-style: normal;
-}
-
-
-.yanone-kaffeesatz-bold {
-	@include yanone-kaffeesatz-bold;
-}
-
-
-@mixin open-sans {
-	font-family: 'Open Sans', sans-serif;;
-	font-weight: normal;
-	font-style: normal;
-}
-
-
-.open-sans {
-	@include open-sans;
-}
-
-
