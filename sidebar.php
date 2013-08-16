@@ -11,6 +11,6 @@
  * @since charlie_may 1.0
  */
 ?>
-<div id="sidebar" class="span three">
+<div id="sidebar" class="span three hide-on-tablet alpha">
 	<?php dynamic_sidebar('default'); ?>
 </div>

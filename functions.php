@@ -169,28 +169,30 @@ function charlie_may_widgets_init() {
 
 	require( get_template_directory() . '/inc/widgets/featured-products-widget.php' );
 
+	require( get_template_directory() . '/inc/widgets/sub-product-categories-widget.php' );
+
 
 
 	/********************** Sidebars ***********************/
 
 	register_sidebar( array(
-		'name' => __( 'Shop Sidebar', THEME_NAME ),
+		'name' => __( 'Default Sidebar', THEME_NAME ),
 		'id' => 'default',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget' => '</aside>',
 		'before_title' => '<h4 class="widget-title">',
-		'after_title' => '</h4>',
+		'after_title' => '</h4>'
 	) );
 
 	/********************** Content ***********************/
 
 	register_sidebar( array(
-		'name' => __( 'Homepage Content', 'gbteddybear' ),
+		'name' => __( 'Homepage Content', THEME_NAME ),
 		'id' => 'homepage_content',
 		'before_widget' => '<aside id="%1$s" class="widget span one-third equal-height %2$s">',
 		'after_widget' => '</aside>',
 		'before_title' => '<h5 class="widget-title">',
-		'after_title' => '</h5>',
+		'after_title' => '</h5>'
 	) );
 }
 
@@ -434,9 +436,10 @@ remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 
 
 remove_action( 'woocommerce_archive_description', 'woocommerce_product_archive_description', 10 );
 remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
-remove_action( 'woocommerce_before_shop_loop', 'woocommerce_show_messages', 10 );
+//remove_action( 'woocommerce_before_shop_loop', 'woocommerce_show_messages', 10 );
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
-remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+//remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+add_action( 'woocommerce_before_shop_loop', 'woocommerce_pagination', 10 );
 
 remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
 add_action( 'woocommerce_before_shop_loop_item_title', 'custom_loop_product_thumbnail', 10 );
@@ -534,15 +537,15 @@ if ( ! function_exists( 'custom_template_single_product_delivery' ) ) {
 }
 
 
-add_filter( 'woocommerce_product_description_heading', 'custom_product_description_heading'); 
+// add_filter( 'woocommerce_product_description_heading', 'custom_product_description_heading'); 
 
 
-if ( ! function_exists( 'custom_product_description_heading' ) ) {
+// if ( ! function_exists( 'custom_product_description_heading' ) ) {
 
-	function custom_product_description_heading( ) {
-		return __("More about this bear", THEME_NAME);
-	}
-}
+// 	function custom_product_description_heading( ) {
+// 		return __("More about this product", THEME_NAME);
+// 	}
+// }
 
 
 
@@ -646,7 +649,11 @@ if ( ! function_exists( 'get_currency_from_country' ) ) {
 add_filter( 'loop_shop_per_page', 'custom_shop_per_page', 20 );
 
 function custom_shop_per_page($columns){
-	return 20;
+	if(isset($_GET['show_all'])) {
+		return -1;
+	} else {
+		return 21;
+	}
 }
 
 
@@ -671,27 +678,6 @@ if ( ! function_exists( 'custom_gateway_icon' ) ) {
 	}
 }
 
-add_filter('woocommerce_product_related_posts', 'custom_product_related_posts', 20);
-
-if ( ! function_exists( 'custom_product_related_posts' ) ) {
-	function custom_product_related_posts($args){
-
-		if(isset($args['orderby'])){
-			$args['orderby'] = 'menu_order';
-		}
-		if(isset($args['tax_query'][0]['terms'])){
-			$terms = $args['tax_query'][0]['terms'];
-			$args['tax_query'][0]['terms'] = array();
-			foreach($terms as $term){
-				if($term != get_charlie_may_option('all_bears_category_id')){
-					$args['tax_query'][0]['terms'][] = $term;
-				}
-			}
-		}
-
-		return $args;
-	}
-}
 
 add_filter( 'comment_text', 'custom_comment_text'); 
 
