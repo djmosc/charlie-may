@@ -11,11 +11,11 @@
 	</div><!-- #main .site-main -->
 	<div id="social">
 		<div class="inner container">
-			<div class="span five alpha">
+			<div class="span six alpha hide-on-mobile">
 
 				<ul class="social-links">
 					<li>
-						<h5 class="uppercase"><?php _e("Join Us", THEME_NAME); ?></h5>
+						<h5 class="uppercase no-margin title"><?php _e("Join Us", THEME_NAME); ?></h5>
 					</li>
 					<li>
 						<a class="facebook-btn" href="<?php echo get_field('facebook_url', 'options');?>" target="_blank"></a>
@@ -34,7 +34,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="span three right omega">
+			<div class="span three right omega alpha break-on-mobile">
 				<?php gravity_form(1, false, false); ?>
 			</div>
 
@@ -43,18 +43,43 @@
 	<footer id="footer" class="site-footer" role="contentinfo">
 		<div class="top">
 			<div class="container inner">
-				<?php dynamic_sidebar('footer'); ?>
+				<h1 class="logo-container span three alpha">
+					<a class="logo" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
+				</h1>
+				<nav role="navigation" class="span seven omega primary-footer-navigation">
+					<?php wp_nav_menu( array( 'theme_location' => 'primary_footer', 'menu_class' => 'clearfix menu', 'container' => false ) ); ?>
+				</nav>
+				<nav role="navigation" class="span three alpha secondary-footer-navigation">
+					<?php wp_nav_menu( array( 'theme_location' => 'secondary_footer', 'menu_class' => 'menu', 'container' => false ) ); ?>
+				</nav>
 			</div>
 		</div>
 		<div class="bottom">
 			<div class="container inner">
-				<div class="span five alpha">
-					<p>&copy; <?php echo date('Y'); ?><?php _e("The Great British Teddy Bear Company&reg; all rights reserved.", THEME_NAME); ?></p>
+				<div class="break-on-tablet span three alpha">
+					<ul class="social-links">
+						<li>
+							<a class="facebook-btn" href="<?php echo get_field('facebook_url', 'options');?>" target="_blank"></a>
+						</li>
+						<li>
+							<a class="twitter-btn" href="<?php echo get_field('twitter_url', 'options');?>" target="_blank"></a>
+						</li>
+						<li>
+							<a class="instagram-btn" href="<?php echo get_field('instagram_url', 'options');?>" target="_blank"></a>
+						</li>
+						<li>
+							<a class="tumblr-btn" href="<?php echo get_field('tumblr_url', 'options');?>" target="_blank"></a>
+						</li>
+						<li>
+							<a class="pinterest-btn" href="<?php echo get_field('pinterest_url', 'options');?>" target="_blank"></a>
+						</li>
+					</ul>
 				</div>
-				<div class="span five omega">
-					<nav role="navigation" class="footer-navigation right">
-						<?php wp_nav_menu( array( 'theme_location' => 'primary_footer', 'menu_class' => 'clearfix menu', 'container' => false ) ); ?>
-					</nav><!-- .site-navigation .main-navigation -->
+				<div class="break-on-tablet span seven alpha omega">
+					<p class="small text-right">
+						<?php _e("&copy; 2013 Charlie May | All Rights Reserved | Site by", THEME_NAME);?>
+						<a href="http://parkandcube.com" target="_blank">Shini Park</a> &amp; <a href="http://www.mindblownmedia.com" target="_blank">Mind Blown Media</a>
+					</p>
 				</div>
 			</div>
 		</div>

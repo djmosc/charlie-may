@@ -28,8 +28,6 @@ function charlie_may_setup() {
 
 	require( get_template_directory() . '/inc/shortcodes.php' );
 
-	require( get_template_directory() . '/inc/options.php' );
-
 	/**
 	 * Make theme available for translation
 	 * Translations can be filed in the /languages/ directory
@@ -52,8 +50,9 @@ function charlie_may_setup() {
 	 * This theme uses wp_nav_menu() in one location.
 	 */
 	register_nav_menus( array(
-		'primary' => __( 'Primary Menu', THEME_NAME ),
-		'footer' => __( 'Footer Menu', THEME_NAME )
+		'primary_header' => __( 'Primary Header Menu', THEME_NAME ),
+		'primary_footer' => __( 'Primary Footer Menu', THEME_NAME ),
+		'secondary_footer' => __( 'Secondary Footer Menu', THEME_NAME )
 	) );
 
 	// add_image_size( 'custom_large', 530, 650, true);
@@ -135,7 +134,25 @@ if(!function_exists('set_custom_post_types')) {
 		   	);
 
 		   	$collection->add_taxonomy('Season', array('hierarchical' => true), array('plural' => 'Seasons'));
+		
+			$press_page = get_field('press_page', 'options');
+			$press_release = new Custom_Post_Type( 'Press Release', 
+		 		array(
+		 			'rewrite' => array( 'with_front' => false, 'slug' => get_page_uri($press_page->ID) ),
+		 			'capability_type' => 'post',
+		 		 	'publicly_queryable' => true,
+		   			'has_archive' => true, 
+		    		'hierarchical' => false,
+		    		'exclude_from_search' => true,
+		    		'menu_position' => null,
+		    		'supports' => array('title', 'thumbnail', 'editor', 'page-attributes'),
+		    		'plural' => 'Press Releases'
+		   		)
+		   	);
+
 		}
+
+
 	}
 }
 
@@ -146,6 +163,13 @@ if(!function_exists('set_custom_post_types')) {
  * @since charlie_may 1.0
  */
 function charlie_may_widgets_init() {
+	unregister_widget( 'WC_Widget_Featured_Products' );
+
+	require( get_template_directory() . '/inc/widgets/press-widget.php' );
+
+	require( get_template_directory() . '/inc/widgets/featured-products-widget.php' );
+
+
 
 	/********************** Sidebars ***********************/
 
@@ -163,14 +187,14 @@ function charlie_may_widgets_init() {
 	register_sidebar( array(
 		'name' => __( 'Homepage Content', 'gbteddybear' ),
 		'id' => 'homepage_content',
-		'before_widget' => '<aside id="%1$s" class="widget span one-third %2$s">',
-		'after_widget' => '</div></aside>',
+		'before_widget' => '<aside id="%1$s" class="widget span one-third equal-height %2$s">',
+		'after_widget' => '</aside>',
 		'before_title' => '<h5 class="widget-title">',
-		'after_title' => '</h5><div class="inner equal-height">',
+		'after_title' => '</h5>',
 	) );
 }
 
-add_action( 'widgets_init', 'charlie_may_widgets_init' );
+add_action( 'widgets_init', 'charlie_may_widgets_init', 60 );
 
 
 if ( ! function_exists( 'get_top_level_category' )) {
@@ -406,7 +430,6 @@ if ( ! function_exists( 'custom_subcategory_thumbnail' ) ) {
 	}
 }
 
-remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
 
 remove_action( 'woocommerce_archive_description', 'woocommerce_product_archive_description', 10 );
@@ -588,7 +611,7 @@ if ( ! function_exists( 'custom_product_thumbnails_columns' ) ) {
 add_filter('loop_shop_columns', 'custom_loop_columns');
 if (!function_exists('custom_loop_columns')) {
 	function custom_loop_columns() {
-		return 5;
+		return 3;
 	}
 }
 

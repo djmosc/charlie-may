@@ -33,4 +33,4 @@ if($id == get_option('woocommerce_shop_page_id')) {
 $classes = ($id) ? get_post_class($classes, $id) : $classes;
 ?>
 
-<div id="woocommerce"><div class="container"><div class="woocommerce <?php if(!empty($classes)) echo implode(' ', $classes); ?>">
+<div id="woocommerce" class="span seven"><div class="woocommerce <?php if(!empty($classes)) echo implode(' ', $classes); ?>">

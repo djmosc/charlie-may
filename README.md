@@ -1,1 +1,1 @@
-Wordpress theme for GB Teddybear
+Wordpress theme for Charlie May

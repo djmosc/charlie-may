@@ -326,6 +326,8 @@
 			} else if(windowWidth > 600 && !mainNavigation.is(':visible')) {
 				mainNavigation.show();
 			}
+
+			main.equalHeight();
 		}
 	}
 

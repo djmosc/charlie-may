@@ -169,7 +169,7 @@ body {
 		background: #FFF;
 		position: relative;
 		margin: 2em 0 0 0;
-		border-top: 2px solid #000;
+		border-top: 1px solid #000;
 		border-bottom: 1px solid #cecece;
 	
 		.mobile-navigation-btn {
@@ -238,8 +238,8 @@ body {
 			 	> a {
 			 		display: inline-block;
 					padding: 12px 0;
-			 		border-bottom: 2px solid #FFF;
-			 		border-bottom: 2px solid rgba(#FFF, 0);
+			 		border-bottom: 1px solid #FFF;
+			 		border-bottom: 1px solid rgba(#FFF, 0);
 				 	position: relative;
 				 	
 
@@ -272,7 +272,7 @@ body {
 			 	&.current-post-parent > a,
 			 	&.current > a {
 			 		color: #000;
-			 		border-bottom: 2px solid #000;
+			 		border-bottom: 1px solid #000;
 			 	}
 
 			 	&:hover {
@@ -290,8 +290,12 @@ body {
 			 	&.has-sub-menu {
 			 		> a{
 			 			&:hover {
-				 			border-bottom: 2px solid #FFF;
-					 		border-bottom: 2px solid rgba(#FFF, 0);
+				 			border-bottom: 1px solid #FFF;
+					 		border-bottom: 1px solid rgba(#FFF, 0);
+
+					 		@include device-width(6) {
+					 			border-bottom: 1px solid #000;
+					 		}
 			 			}
 
 			 			&:after {
@@ -321,7 +325,7 @@ body {
 			 		visibility: hidden;
 			 		@include opacity(0);
 			 		@include transition(all 0.3s ease);
-					border-bottom: 2px solid #000;
+					border-bottom: 1px solid #000;
 					
 
 			 		li {
@@ -359,14 +363,14 @@ body {
 #main {
 	position: relative;
 	z-index: 500;
-	padding: 0 0 4em 0;
+	padding: 0 0 2em 0;
 }
 		
 #sidebar {}
 	
 #footer {
 	background: #000;
-	color: #FFF;
+	color: #666666;
 	margin-top: 2em;
 	
 	@media print {
@@ -388,9 +392,95 @@ body {
 	}
 
 	> .bottom {
-
+		> .inner {
+			padding: 1em 0 3em 0;
+		}
 	}
 
+	.logo-container {
+		margin: 0;
+		padding: 0;
+		line-height: 0;
+		position: relative;
+		z-index: 500;
+
+		@include device-width(8) {
+			float: none;
+			width: auto;
+		}
+
+		.logo {
+			background: url(../images/logos/charlie_may_footer.jpg) no-repeat;
+			width: 220px;
+			height: 24px;
+			display: inline-block;
+			text-indent: -9999px;
+		}
+	}
+
+	.primary-footer-navigation {
+		@include device-width(8) {
+			float: right;
+			width: auto;
+			margin: 2em 0 0 0;
+		}
+		ul {
+			margin: 0 0 0 -10em;
+			padding: 0;
+			list-style: none;
+			@include device-width(11) {
+				margin-left: 0;
+			}
+
+			
+			li {
+				float: right;
+				margin: 0.2em 0 0.2em 10em;
+
+				@include device-width(11) {
+					margin-left: 5em;
+				}
+
+				@include device-width(9) {
+					margin-left: 3em;
+				}
+
+				@include device-width(8) {
+					float: none;
+					margin-left: 0;
+					text-align: right;
+				}
+				a {
+					text-transform: uppercase;
+					letter-spacing: 2px;
+					@include font-size(10);
+				}
+			}
+		}
+	}
+
+	.secondary-footer-navigation {
+		margin: 2em 0 0 0;
+		clear: left;
+
+		@include device-width(8) {
+			width: auto;
+		}
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			li {
+				margin: 0.2em 0;
+				a {
+					text-transform: uppercase;
+					letter-spacing: 2px;
+					@include font-size(8);
+					color: #c6c6c6;
+				}
+			}
+		}
+	}
 	.widget {
 		border-left: 1px solid #cecece;
 		padding-top: 0.5em;
@@ -484,7 +574,7 @@ body {
 	> .inner {
 		border-top: 1px solid #808080;
 		border-bottom: 1px solid #808080;
-		padding: 0.5em 0;
+		padding: 0.8em 0;
 	}
 }
 /* =============================================================================
@@ -498,7 +588,7 @@ body {
 		$ratio: 1 / 2;
 		//min-height: $ratio * 1156px;
 		z-index: 100;
-		margin-bottom: 3em;
+		margin-bottom: 1em;
 		position: relative;
 		&:before {
 			content: '';
@@ -530,8 +620,36 @@ body {
 			.content {
 				position: absolute;
 				top: 50%;
+				left: 0;
 				margin-top: -4em;
 
+				@include device-width(6) {
+					top: 0;
+					position: relative;
+					margin-top: 2em;
+				}
+
+				&.center {
+					width: 100%;
+					text-align: center;
+
+					* {
+						margin-left: auto;
+						margin-right: auto;
+					}
+				}
+
+				&.right {
+					width: 100%;
+					text-align: right;
+
+					hr {
+						float: right;
+						& + * {
+							clear: both;
+						}
+					}
+				}
 				.csstransform & {
 					margin-top: 0;
 					@include translateY(-50%);
@@ -548,69 +666,24 @@ body {
 	}
 
 	#widgets {
-		background: #f5f5f5;
 		> .container {
-			padding: 4em 0;
 			> .inner {
-				margin: 0 -10px;
-			}
-
-			@include device-width(5) {
-				padding: 2em 0;
-			}
-
-			@include device-width(4) {
-				padding: 1em 0;
+				margin-left: -10px;
+				margin-right: -10px;
 			}
 		}
-
 		.widget {
-			margin-bottom: 1em;
-			@include device-width(9) {
+			@include device-width(8){
 				width: 50%;
 			}
 
-			@include device-width(5) {
+			@include device-width(4){
 				width: 100%;
 			}
 
-			> .inner {
-				background: #FFF;
-				border-top: 3px solid #000;
-				border-bottom: 1px solid #cecece;
-				padding-bottom: 30px;
-				position: relative;
-			}
-
-			.widget-title {
-
-			}
-
-			.widget-footer {
-				position: absolute;
-				bottom: 0;
-				left: 0;
-				@include box-sizing(border-box);
-				width: 100%;
-				border-top: 1px solid #ececec;
-				background: #FFF;
-				z-index: 200;
-			}
-			&.widget_twitter_feed {
-				@include device-width(9) {
+			&.widget_featured_products {
+				@include device-width(8){
 					display: none;
-				}
-				#twitter-feed {
-					height: 99.5%;
-					width: 100%;
-					//max-height: 300px;
-					padding: 0 0 2.7em 0;
-					overflow: auto;
-					@include box-sizing(border-box);
-				}
-
-				.twitter-footer {
-					padding: 0 0.3em;
 				}
 			}
 		}
@@ -626,93 +699,6 @@ body {
 
 		@include device-width(4) {
 			margin: 1em 0;
-		}
-	}
-
-	#photos {
-		margin: 0 0 0 0;
-		overflow: hidden;
-
-		@include device-width(6) {
-			margin: 4em 0 0 0;
-		}
-		.photos-header {
-			border-bottom: 3px solid #000;
-		}
-
-		.photo-list-container {
-			overflow: auto;
-		}
-
-		.photo-list {
-			display: inline-block;
-			padding: 0;
-			margin: 3px 0;
-			list-style: none;
-			min-width: 100%;
-			white-space: nowrap;
-
-			li {
-				display: inline-block;
-				width: 174px;
-				height: 174px;
-				margin: 3px;
-				a {
-					width: 100%;
-					height: 100%;
-					overflow: hidden;
-					display: block;
-
-					img {
-						display: block;
-					}
-				}
-
-				&.half {
-					clear: left;
-				}
-
-				@include device-width(10) {
-					width: 150px;
-					height: 150px;
-				}
-
-				@include device-width(5) {
-					width: 100px;
-					height: 100px;
-					margin: 3px;
-				}
-
-
-			}
-		}
-		.photos-footer {
-			background: #f5f5f5;
-			padding: 0.8em;
-			position: relative;
-			text-align: center;
-
-			@include device-width(5) {
-				text-align: left;
-			}
-			.photos-navigation {
-				position: absolute;
-				top: 0;
-				right: 0;
-				height: 100%;
-				@include device-width(3){
-					display: none;
-				}
-				a {
-					padding: 1em;
-					display: inline-block;
-					background: #ebebeb;
-
-					&:hover {
-						background: #fdfdfd;
-					}
-				}
-			}
 		}
 	}
 }
@@ -737,55 +723,6 @@ body {
 
 #error {}
 
-#archive-photo {
-	#photos {
-		margin: 1em 0 0 0;
-		overflow: hidden;
-
-		.photo-list {
-			padding: 0;
-			margin: 0.5em -4px;
-			list-style: none;
-			min-width: 100%;
-
-			
-
-			li {
-				float: left;
-				width: 16.6%;
-				@include box-sizing(border-box);
-				padding: 4px;
-				a {
-					width: 100%;
-					height: 100%;
-					overflow: hidden;
-					display: block;
-				}
-
-				// @include device-width(10) {
-				// 	width: 150px;
-				// 	height: 150px;
-				// }
-
-				// @include device-width(5) {
-				// 	width: 100px;
-				// 	height: 100px;
-				// 	margin: 3px;
-				// }
-			}
-		}
-		.photos-footer {
-			margin: 1em 0; 
-			position: relative;
-			text-align: center;
-
-			@include device-width(5) {
-				text-align: left;
-			}
-			
-		}
-	}
-}
 
 #page,
 #woocommerce {
@@ -1674,7 +1611,7 @@ body {
 
 			h3 {
 				@include font-size(20);
-				border-bottom: 2px solid #000;
+				border-bottom: 1px solid #000;
 				text-transform: uppercase;
 				padding: 0 0 0.5em 0;
 				float: none;

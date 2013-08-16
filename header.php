@@ -94,7 +94,7 @@
 					</a>
 					<button class="mobile-navigation-btn uppercase">menu <i aria-hidden="true" class="icon-arrow-down tiny"></i></button>
 					<nav role="navigation" class="site-navigation main-navigation">
-						<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'clearfix menu', 'container' => false ) ); ?>
+						<?php wp_nav_menu( array( 'theme_location' => 'primary_header', 'menu_class' => 'clearfix menu', 'container' => false ) ); ?>
 					</nav><!-- .site-navigation .main-navigation -->
 				</div>
 			</div>
