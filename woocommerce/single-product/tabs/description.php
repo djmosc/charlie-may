@@ -15,7 +15,7 @@ if($post->post_content || get_field('content', $id)):
 $heading = esc_html( apply_filters('woocommerce_product_description_heading', __( 'Product Description', 'woocommerce' ) ) );
 ?>
 <div class="description">
-	<header class="line-header"><h5 class="title"><?php echo $heading; ?></h5></header>
+	<h3 class="title text-center"><?php echo $heading; ?></h3>
 	<div class="content">
 		<?php if($post->post_content): ?>
 		<div class="product-content"><?php the_content(); ?></div>

@@ -19,7 +19,7 @@ $available_methods = $woocommerce->shipping->get_available_shipping_methods();
 
 	<?php if ( ! $woocommerce->shipping->enabled || $available_methods || ! $woocommerce->customer->get_shipping_country() || ! $woocommerce->customer->has_calculated_shipping() ) : ?>
 
-		<header class="line-header"><h5 class="title"><?php _e( 'Cart Totals', 'woocommerce' ); ?></h5></header>
+		<h3 class="title"><?php _e( 'Cart Totals', 'woocommerce' ); ?></h3>
 
 		<table cellspacing="0">
 			<tbody>

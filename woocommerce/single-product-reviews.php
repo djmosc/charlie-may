@@ -20,8 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		<?php $title_reply = ''; ?>
 
 		<?php if ( have_comments() ) : ?>
-			<header class="line-header"><h5 class="title"><?php _e( 'What people have said about this bear', 'woocommerce' ); ?></h5></header>
-
+			<h3 class="title text-center"><?php _e( 'Reviews', 'woocommerce' ); ?></h3>
 			<ol class="commentlist">
 
 			<?php wp_list_comments( array( 'callback' => 'woocommerce_comments' ) );?>
@@ -39,15 +38,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 			<footer class="reviews-footer add_review clearfix">
 				<div class="inner clearfix">
-					<div class="break-on-mobile span six">
-						<h5 class="no-margin light-brown uppercase"><?php _e("Are you the proud owner of this Bear?", THEME_NAME); ?></h5>
-						<p class="no-margin"><?php _e("Why not share a story about your great british teddy bear!", THEME_NAME); ?></p>
-					</div>
-					<div class="break-on-mobile span four">
-						<p class="no-margin">
-							<a href="#review_form" class="inline show_review_form red-btn"><?php _e( 'Write a review', 'woocommerce' );?></a>
-						</p>
-					</div>
+					<p class="text-right">
+						<a href="#review_form" class="inline show_review_form white-btn"><?php _e( 'Write a review', 'woocommerce' );?></a>
+					</p>
 				</div>
 			</footer>
 

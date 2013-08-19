@@ -15,7 +15,7 @@ $order = new WC_Order( $order_id );
 ?>
 <div class="order-product-details">
 	<header class="order-product-details">
-		<h4 class="uppercase brown"><?php _e("Order Summary", THEME_NAME); ?></h4>
+		<h4><?php _e("Order Summary", THEME_NAME); ?></h4>
 	</header>
 	<table class="shop_table order_details">
 		<thead>
@@ -98,7 +98,7 @@ $order = new WC_Order( $order_id );
 
 <div class="customer-details">
 	<header>
-		<h4 class="uppercase brown"><?php _e( 'Customer details', 'woocommerce' ); ?></h4>
+		<h4><?php _e( 'Customer details', 'woocommerce' ); ?></h4>
 	</header>
 	<div class="col2-set">
 		<?php if ($order->billing_email) echo '<div class="col-1"><p><b>'.__( 'Email:', 'woocommerce' ).'</b><br />'.$order->billing_email.'</p></div>'; ?>
@@ -114,7 +114,7 @@ $order = new WC_Order( $order_id );
 <?php endif; ?>
 
 		<header class="address-header">
-			<h4 class="uppercase brown"><?php _e( 'Billing Address', 'woocommerce' ); ?></h4>
+			<h4><?php _e( 'Billing Address', 'woocommerce' ); ?></h4>
 		</header>
 		<address><p>
 			<?php
@@ -129,7 +129,7 @@ $order = new WC_Order( $order_id );
 	<div class="col-2">
 
 		<header class="address-header">
-			<h4 class="uppercase brown"><?php _e( 'Shipping Address', 'woocommerce' ); ?></h4>
+			<h4><?php _e( 'Shipping Address', 'woocommerce' ); ?></h4>
 		</header>
 		<address><p>
 			<?php

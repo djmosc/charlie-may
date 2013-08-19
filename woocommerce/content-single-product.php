@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		?>
 
 		<div class="summary entry-summary">
-
+			<div class="product-info">
 			<?php
 				/**
 				 * woocommerce_single_product_summary hook
@@ -48,6 +48,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 				 */
 				do_action( 'woocommerce_single_product_summary' );
 			?>
+			</div>
+			<?php do_action( 'single_product_additional_info' ); ?>
 
 		</div><!-- .summary -->
 	</div>

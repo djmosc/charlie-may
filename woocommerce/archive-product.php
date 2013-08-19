@@ -32,8 +32,22 @@ get_header('shop'); ?>
 		do_action('woocommerce_before_main_content');
 	?>
 		<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
-		<header class="archive-product-header">	
-			<h1 class="page-title"><?php woocommerce_page_title(); ?></h1>
+		<?php if (is_product_category()) {
+			global $wp_query;
+			$cat = $wp_query->get_queried_object();
+		} ?>
+		<header class="archive-product-header <?php if(is_product_category()) the_field('header_style', 'product_cat_'.$cat->term_id); ?> clearfix">
+			<div class="span alpha five">
+				<?php if (is_product_category()):
+				    
+				    $thumbnail_id = get_woocommerce_term_meta( $cat->term_id, 'thumbnail_id', true ); 
+				    $image = wp_get_attachment_image_src( $thumbnail_id, 'category' ); 
+				    echo '<img src="'.$image[0].'" alt="" class="scale" />';
+				endif; ?>
+			</div>
+			<div class="span five">
+				<h2 class="page-title text-center"><?php woocommerce_page_title(); ?></h2>
+			</div>
 		</header>
 		<?php endif; ?>
 

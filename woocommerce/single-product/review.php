@@ -40,7 +40,7 @@ $rating = esc_attr( get_comment_meta( $GLOBALS['comment']->comment_ID, 'rating',
 				</p>
 			<?php endif; ?>
 		</header>
-		<div class="comment-text" data-icon="&#x77;">
+		<div class="comment-text" >
 			<?php comment_text(); ?>
 		</div>
 	</div>

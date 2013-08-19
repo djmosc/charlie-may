@@ -28,7 +28,7 @@ global $woocommerce;
 	$notes = $order->get_customer_order_notes();
 	if ($notes) :
 		?>
-		<h4 class="brown"><?php _e( 'Order Updates', 'woocommerce' ); ?></h4>
+		<h4><?php _e( 'Order Updates', 'woocommerce' ); ?></h4>
 		<ol class="commentlist notes">
 			<?php foreach ($notes as $note) : ?>
 			<li class="comment note">

@@ -16,17 +16,22 @@ if ( $wp_query->max_num_pages <= 1 )
 ?>
 <nav class="woocommerce-pagination">
 	<?php
-		echo paginate_links( apply_filters( 'woocommerce_pagination_args', array(
+		$pagination =  paginate_links( apply_filters( 'woocommerce_pagination_args', array(
 			'base' 			=> str_replace( 999999999, '%#%', get_pagenum_link( 999999999 ) ),
 			'format' 		=> '',
 			'current' 		=> max( 1, get_query_var('paged') ),
 			'total' 		=> $wp_query->max_num_pages,
 			'prev_text' 	=> 'Prev',
 			'next_text' 	=> 'Next',
-			'type'			=> 'list',
+			'type'			=> 'array',
 			'end_size'		=> 3,
 			'mid_size'		=> 3
 		) ) );
+
+		foreach($pagination as $link){
+			echo $link.' ';
+		}
+	//	print_r($pagination);
 	?>
-	<a href="?view_all"><?php _e("View All", THEME_NAME); ?></a>
+	/ <a href="?view_all"><?php _e("View All", THEME_NAME); ?></a>
 </nav>

@@ -16,7 +16,7 @@ $woocommerce->show_messages(); ?>
 
 <div class="content">
 	<div class="row">
-		<h3 class="page-title brown no-margin uppercase no-margin"><?php _e( 'My Account', 'woocommerce' ); ?></h3>
+		<h3 class="page-title no-margin uppercase no-margin"><?php _e( 'My Account', 'woocommerce' ); ?></h3>
 		<p><?php
 			printf(
 				__( 'Hello, <strong>%s</strong>. From your account dashboard you can view your recent orders, manage your shipping and billing addresses and <a href="%s">change your password</a>.', 'woocommerce' ),

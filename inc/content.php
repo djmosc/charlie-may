@@ -41,28 +41,7 @@
 			</div>
 			<?php endif; ?>
 			<?php break; ?>
-		<?php case 'pages':  ?>
-
-			<?php $pages = get_sub_field('pages'); ?>
-			<?php if(!empty($pages)): ?>
-			<div class="pages">
-				<header class="line-header"><h5 class="title"><?php the_sub_field('title'); ?></h5></header>
-				<ul class="page-list clearfix">
-					<?php foreach($pages as $post): ?>
-					<?php setup_postdata($post) ?>
-					<li class="page span">
-						<a href="<?php the_permalink(); ?>" class="overlay-btn">
-							<?php the_post_thumbnail('thumbnail', array('class' => 'scale')); ?>
-						</a>
-						<h6 class="uppercase"><a href="<?php the_permalink(); ?>" class="uppercase"><?php the_title(); ?></a></h6>
-					</li>
-				<?php endforeach; ?>
-				<?php wp_reset_postdata(); ?>
-				</ul>
-			</div>
-			<?php endif; ?>
-			<?php break; ?>
-
+		
 	<?php } ?>
 
 <?php $i++; ?>

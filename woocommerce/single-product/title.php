@@ -10,4 +10,4 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 ?>
-<h3 itemprop="name" class="brown uppercase no-margin product_title entry-title "><?php the_title(); ?></h3>
+<h3 itemprop="name" class="uppercase no-margin product_title entry-title "><?php the_title(); ?></h3>

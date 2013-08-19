@@ -33,6 +33,7 @@
 			this.ajaxPage.init();
 			this.scroller.init();
 			this.accordion.init();
+			this.zoom.init();
 		
 
 			$(window).resize(this.resize);
@@ -122,42 +123,29 @@
 
 		accordion: {
 			init: function(){
-				if($.fn.accordion){
-					$('.accordion').each(function(){
-						var accordion = $(this),
-							width = accordion.width(),
-							totalItems = accordion.children().size(),
-							tabWidth = (accordion.data('tab-width')) ? accordion.data('tab-width') : 32
-							resizeChildren = (accordion.data('resize-children')) ? accordion.data('resize-children') : true,
-							options = {
-							//	easing: 'easeOutBounce',
-							//	timeout: 5500,
-								slideClass: 'item',
-								tabWidth: tabWidth,
-								width: width,
-								height: 330,
-								animationComplete: function(){
-									var item = $(this);
-									item.addClass(options.slideClass + '-opened')
-								},
-								animationStart: function(){
-									var slideClass = options.slideClass;
-									accordion.addClass('opened');
-									$('.'+ slideClass, accordion).removeClass(slideClass + '-opened');
-								},
-								close: function(){
-									var slideClass = options.slideClass;
-									$('.'+ slideClass, accordion).removeClass(slideClass + '-opened');
-								},
-								closed: function(){
-									accordion.removeClass('opened');
-								}
-							};
-
-						accordion.accordion(options);
-
-					});
-				}
+				$('.accordion li .btn').on('click', function(){
+					$(this).parent().find('.content').slideToggle();
+				});
+			}
+		},
+		zoom: {
+			init: function(){
+				$('.zoom img').elevateZoom({
+					tint:true,
+					tintColour:'#FFF',
+					tintOpacity:0.5,
+					borderSize: 0,
+					zoomWindowPosition: 1,
+					zoomWindowOffetx: 20,
+					zoomWindowFadeIn: 500,
+					zoomWindowFadeOut: 500,
+					zoomWindowWidth: 480,
+					zoomWindowHeight: 460,
+					lensFadeIn: 500,
+					lensFadeOut: 500,
+					easing: true,
+					lensBorderSize: 0
+				});
 			}
 		},
 
