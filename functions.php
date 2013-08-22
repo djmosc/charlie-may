@@ -168,6 +168,8 @@ function charlie_may_widgets_init() {
 
 	require( get_template_directory() . '/inc/widgets/press-widget.php' );
 
+	require( get_template_directory() . '/inc/widgets/latest-rss-post-widget.php' );
+
 	require( get_template_directory() . '/inc/widgets/featured-products-widget.php' );
 
 	require( get_template_directory() . '/inc/widgets/sub-product-categories-widget.php' );
@@ -444,7 +446,7 @@ remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
 add_action( 'woocommerce_before_shop_loop', 'woocommerce_pagination', 10 );
 add_action( 'woocommerce_after_shop_loop', 'woocommerce_catalog_ordering', 30 );
 
-
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50 );
 //add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 25 );
@@ -727,7 +729,6 @@ if ( ! function_exists( 'mark_emails_as_read' ) ) {
 
 
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50 );
-add_action( 'woocommerce_after_product_images', 'woocommerce_template_single_sharing', 30);
 
 add_action('acf/options_page/settings','custom_options_pages');
 
@@ -778,16 +779,28 @@ if ( ! function_exists( 'custom_submit_button' )) {
 }
 
 
-add_action('single_product_additional_info', 'custom_single_product_accordion');
+add_action('single_product_additional_info', 'custom_single_product_accordion', 10);
 
 
 if ( ! function_exists( 'custom_single_product_accordion' )) { 
-	function custom_single_product_accordion($button_input, $form){
+	function custom_single_product_accordion(){
 		woocommerce_get_template( 'single-product/accordion.php' );
 	}
 }
 
+
+add_action('single_product_additional_info', 'woocommerce_template_single_sharing', 20);
+
+
+
 remove_action( 'woocommerce_cart_collaterals', 'woocommerce_cross_sell_display' );
 
 
-//remove_action( 'woocommerce_share', array( $WC_ShareThis, 'sharethis_code' ) );
+add_filter('woocommerce_sale_flash', 'custom_sale_flash');
+
+if ( ! function_exists( 'custom_sale_flash' )) { 
+	function custom_sale_flash(){
+		return '<span class="onsale">'.__( 'Sale', 'woocommerce' ).'</span>';
+	}
+}
+

@@ -33,10 +33,10 @@ get_header(); ?>
 					<?php $i++; ?>
 					<?php endwhile; ?>
 				</div>
-				<!--div class="scroller-navigation">
+				<div class="scroller-navigation">
 					<a class="prev-btn"></a>
 					<a class="next-btn"></a>
-				</div-->
+				</div>
 			</div>
 		</div><!-- #homepage-scroller -->
 	<?php endif; ?>

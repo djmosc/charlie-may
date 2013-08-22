@@ -77,7 +77,7 @@
 					<?php global $woocommerce; ?>
 					<li class="cart">
 						<a href="<?php echo get_permalink(get_field('cart_page', 'options')); ?>" class="cart-btn" ><?php echo get_the_title(get_field('cart_page', 'options')); ?></a>
-						&nbsp;&nbsp;<strong class="items"><?php echo sprintf(_n('%d', '%d', $woocommerce->cart->cart_contents_count, 'woothemes'), $woocommerce->cart->cart_contents_count);?></strong>
+						&nbsp;&nbsp;<a class="items" href="<?php echo get_permalink(get_field('cart_page', 'options')); ?>"><?php echo sprintf(_n('%d', '%d', $woocommerce->cart->cart_contents_count, 'woothemes'), $woocommerce->cart->cart_contents_count);?></a>
 					</li>
 				</ul>
 			</div>	

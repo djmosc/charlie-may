@@ -62,8 +62,10 @@ class Press extends WP_Widget {
                         <?php the_post_thumbnail('custom_medium', array('class' => 'thumbnail scale')); ?>
                     </div>
                     <div class="content">
-                        <h5 class="novecento"><?php _e("Featured In", THEME_NAME); ?></h5>
-                        <h2 class="title"><?php the_title(); ?></h2>
+                        <div class="inner">
+                            <h5 class="novecento"><?php _e("Featured In", THEME_NAME); ?></h5>
+                            <h2 class="title"><?php the_title(); ?></h2>
+                        </div>
                     </div>
                 </a>
             <?php

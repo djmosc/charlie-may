@@ -13,14 +13,15 @@
  */
 get_header(); ?>
 
-<div id="archive-collection">
-	<div class="collection scroller" data-scroll-all="true" data-resize="true">
+<div id="archive-press-release">
+	<div class="scroller" data-scroll-all="true" data-resize="true">
 		<div class="scroller-mask">
 			<div class="scroll-items-container">
 			<?php $i = 0; ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 				<div class="scroll-item <?php if($i == 0) echo 'current'; ?>" data-id="<?php the_ID(); ?>">
 					<?php the_post_thumbnail('custom_medium', array('class' => 'scale')); ?>
+					<h5><?php the_title(); ?></h5>
 				</div>
 			<?php $i++; ?>
 			<?php endwhile; ?>

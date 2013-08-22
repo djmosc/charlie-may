@@ -10,31 +10,14 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 global $post;
-
 ?>
+<?php if(get_field('accordion')): ?>
 <ul class="accordion">
+	<?php while(has_sub_field('accordion')): ?>
 	<li>
-		<button class="btn">Title</button>
-		<div class="content">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec laoreet ante metus, sed volutpat elit pharetra aliquam.
-		</div>
+		<button class="btn"><?php the_sub_field('title'); ?></button>
+		<div class="content"><?php the_sub_field('content'); ?></div>
 	</li>
-	<li>
-		<button class="btn">Title</button>
-		<div class="content">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec laoreet ante metus, sed volutpat elit pharetra aliquam.
-		</div>
-	</li>
-	<li>
-		<button class="btn">Title</button>
-		<div class="content">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec laoreet ante metus, sed volutpat elit pharetra aliquam.
-		</div>
-	</li>
-	<li>
-		<button class="btn">Title</button>
-		<div class="content">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec laoreet ante metus, sed volutpat elit pharetra aliquam.
-		</div>
-	</li>
+	<?php endwhile; ?>
 </ul>
+<?php endif; ?>

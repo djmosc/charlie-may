@@ -10,7 +10,13 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 global $woocommerce;
-
+?>
+<ul class="checkout-progress">
+	<li><?php _e('Bag', THEME_NAME); ?></li>
+	<li class="current"><?php _e('Payment', THEME_NAME); ?></li>
+	<li><?php _e('Confirmation', THEME_NAME); ?></li>
+</ul>
+<?php
 $woocommerce->show_messages();
 ?>
 <div class="col2-set">

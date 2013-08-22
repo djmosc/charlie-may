@@ -29,6 +29,13 @@
 
 			$('.menu-item .sub-menu', mainNavigation).parent().addClass('has-sub-menu');
 			
+
+			$('.checkout-button').on('click', function(){
+				var form = $('.cart-form');
+				$('.proceed').val(1);
+				form.submit();
+			});
+
 			this.lightbox.init();
 			this.ajaxPage.init();
 			this.scroller.init();
@@ -36,7 +43,7 @@
 			this.zoom.init();
 		
 
-			$(window).resize(this.resize);
+			$(window).on('resize', this.resize);
 			this.resize();
 
 		},
@@ -44,6 +51,7 @@
 		loaded: function(){
 			$('body').addClass('loaded');
 			this.equalHeight();
+			setTimeout(main.scroller.resize, '1000');
 		},
 
 		lightbox: {
@@ -130,30 +138,32 @@
 		},
 		zoom: {
 			init: function(){
-				$('.zoom img').elevateZoom({
-					tint:true,
-					tintColour:'#FFF',
-					tintOpacity:0.5,
-					borderSize: 0,
-					zoomWindowPosition: 1,
-					zoomWindowOffetx: 20,
-					zoomWindowFadeIn: 500,
-					zoomWindowFadeOut: 500,
-					zoomWindowWidth: 480,
-					zoomWindowHeight: 460,
-					lensFadeIn: 500,
-					lensFadeOut: 500,
-					easing: true,
-					lensBorderSize: 0
-				});
+				if($.fn.elevateZoom){
+					$('.zoom img').elevateZoom({
+						tint:true,
+						tintColour:'#FFF',
+						tintOpacity:0.5,
+						borderSize: 0,
+						zoomWindowPosition: 1,
+						zoomWindowOffetx: 20,
+						zoomWindowFadeIn: 500,
+						zoomWindowFadeOut: 500,
+						zoomWindowWidth: 480,
+						zoomWindowHeight: 460,
+						lensFadeIn: 500,
+						lensFadeOut: 500,
+						easing: true,
+						lensBorderSize: 0
+					});
+				}
 			}
 		},
 
 		scroller: {
 			init: function(){
-
+				var scrollers = main.scroller.scrollers = $('.scroller');
 				if($.fn.scroller){
-					$('.scroller').each(function(){
+					scrollers.each(function(){
 						var scroller = $(this);
 						var options = {};
 
@@ -168,6 +178,19 @@
 						}
 
 						scroller.scroller(options);
+					});
+					main.scroller.resize();
+				}
+			},
+			resize: function(){
+				if($.fn.scroller && main.scroller.scrollers){
+					main.scroller.scrollers.each(function(){
+						var scroller = $(this);
+						if($('.scroll-items-container', scroller).length > 0){
+							$('.scroll-item', scroller).width($(window).width() / 3);
+							scroller.trigger('resizeScroller');
+						}
+
 					});
 				}
 			}
@@ -316,6 +339,7 @@
 			}
 
 			main.equalHeight();
+			main.scroller.resize();
 		}
 	}
 

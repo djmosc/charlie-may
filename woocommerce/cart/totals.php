@@ -19,14 +19,12 @@ $available_methods = $woocommerce->shipping->get_available_shipping_methods();
 
 	<?php if ( ! $woocommerce->shipping->enabled || $available_methods || ! $woocommerce->customer->get_shipping_country() || ! $woocommerce->customer->has_calculated_shipping() ) : ?>
 
-		<h3 class="title"><?php _e( 'Cart Totals', 'woocommerce' ); ?></h3>
-
 		<table cellspacing="0">
 			<tbody>
 
 				<tr class="cart-subtotal">
-					<th><strong><?php _e( 'Cart Subtotal', 'woocommerce' ); ?></strong></th>
-					<td><strong><?php echo $woocommerce->cart->get_cart_subtotal(); ?></strong></td>
+					<th><?php _e( 'Cart Subtotal', 'woocommerce' ); ?></th>
+					<td><?php echo $woocommerce->cart->get_cart_subtotal(); ?></td>
 				</tr>
 
 				<?php if ( $woocommerce->cart->get_discounts_before_tax() ) : ?>
@@ -89,9 +87,9 @@ $available_methods = $woocommerce->shipping->get_available_shipping_methods();
 				<?php do_action( 'woocommerce_cart_totals_before_order_total' ); ?>
 
 				<tr class="total">
-					<th><strong><?php _e( 'Order Total', 'woocommerce' ); ?></strong></th>
+					<th><?php _e( 'Order Total', 'woocommerce' ); ?></th>
 					<td>
-						<strong><?php echo $woocommerce->cart->get_total(); ?></strong>
+						<?php echo $woocommerce->cart->get_total(); ?>
 						<?php
 							// If prices are tax inclusive, show taxes here
 							if (  $woocommerce->cart->tax_display_cart == 'incl' ) {

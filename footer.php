@@ -15,7 +15,7 @@
 
 				<ul class="social-links">
 					<li>
-						<h5 class="uppercase no-margin title"><?php _e("Join Us", THEME_NAME); ?></h5>
+						<h5 class="uppercase title"><?php _e("Join Us", THEME_NAME); ?></h5>
 					</li>
 					<li>
 						<a class="facebook-btn" href="<?php echo get_field('facebook_url', 'options');?>" target="_blank"></a>
@@ -78,7 +78,7 @@
 				<div class="break-on-tablet span seven alpha omega">
 					<p class="small text-right">
 						<?php _e("&copy; 2013 Charlie May | All Rights Reserved | Site by", THEME_NAME);?>
-						<a href="http://parkandcube.com" target="_blank">Shini Park</a> &amp; <a href="http://www.mindblownmedia.com" target="_blank">Mind Blown Media</a>
+						<a href="http://parkandcube.com" target="_blank">Park &amp; Cube</a> and <a href="http://www.mindblownmedia.com" target="_blank">Mind Blown Media</a>
 					</p>
 				</div>
 			</div>

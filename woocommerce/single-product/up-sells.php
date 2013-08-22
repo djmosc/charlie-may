@@ -36,7 +36,7 @@ if ( $products->have_posts() ) : ?>
 
 	<div class="upsells products">
 
-		<h5 class="title"><?php _e( 'Also have a look at&hellip;', 'woocommerce' ) ?></h5>
+		<h3 class="title text-center"><?php _e( 'Wear it with&hellip;', 'woocommerce' ) ?></h3>
 
 		<?php woocommerce_product_loop_start(); ?>
 

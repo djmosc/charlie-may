@@ -16,12 +16,18 @@ $woocommerce->show_messages();
 
 <?php do_action( 'woocommerce_before_cart' ); ?>
 <ul class="checkout-progress">
-	<li><?php _e('Bag', THEME_NAME); ?></li>
+	<li class="current"><?php _e('Bag', THEME_NAME); ?></li>
 	<li><?php _e('Payment', THEME_NAME); ?></li>
 	<li><?php _e('Confirmation', THEME_NAME); ?></li>
 </ul>
-<h3><?php echo sprintf(_n('You have %d item in your bag', 'You have %d items in your bag', $woocommerce->cart->cart_contents_count), $woocommerce->cart->cart_contents_count);?></h3>
-
+<header class="cart-header clearfix">
+	<div class="span alpha seven break-on-tablet">
+		<h3><?php echo sprintf(_n('You have <span class="red">%d</span> item in your bag', 'You have <span class="red">%d</span> items in your bag', $woocommerce->cart->cart_contents_count), $woocommerce->cart->cart_contents_count);?></h3>
+	</div>
+	<div class="span three break-on-tablet">
+		<p class="text-right"><input type="submit" class="checkout-button button alt" name="proceed" value="<?php _e( 'Proceed to Checkout &rsaquo;', 'woocommerce' ); ?>" /></p>
+	</div>
+</header>
 <form class="cart-form" action="<?php echo esc_url( $woocommerce->cart->get_cart_url() ); ?>" method="post">
 
 <?php do_action( 'woocommerce_before_cart_table' ); ?>
@@ -29,8 +35,7 @@ $woocommerce->show_messages();
 <table class="shop_table cart" cellspacing="0">
 	<thead>
 		<tr>
-			<th class="product-remove">&nbsp;</th>
-			<th class="product-thumbnail">&nbsp;</th>
+			<th class="product-thumbnail"><?php _e( 'Item', 'woocommerce' ); ?></th>
 			<th class="product-name"><?php _e( 'Product', 'woocommerce' ); ?></th>
 			<th class="product-price"><?php _e( 'Price', 'woocommerce' ); ?></th>
 			<th class="product-quantity"><?php _e( 'Quantity', 'woocommerce' ); ?></th>
@@ -47,12 +52,7 @@ $woocommerce->show_messages();
 				if ( $_product->exists() && $values['quantity'] > 0 ) {
 					?>
 					<tr class = "<?php echo esc_attr( apply_filters('woocommerce_cart_table_item_class', 'cart_table_item', $values, $cart_item_key ) ); ?>">
-						<!-- Remove from cart link -->
-						<td class="product-remove">
-							<?php
-								echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf('<a href="%s" class="remove" title="%s">&times;</a>', esc_url( $woocommerce->cart->get_remove_url( $cart_item_key ) ), __( 'Remove this item', 'woocommerce' ) ), $cart_item_key );
-							?>
-						</td>
+						
 
 						<!-- The thumbnail -->
 						<td class="product-thumbnail">
@@ -80,6 +80,8 @@ $woocommerce->show_messages();
                    				// Backorder notification
                    				if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $values['quantity'] ) )
                    					echo '<p class="backorder_notification">' . __( 'Available on backorder', 'woocommerce' ) . '</p>';
+
+                   				echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf('<a href="%s" class="remove-btn" title="%s">Remove</a>', esc_url( $woocommerce->cart->get_remove_url( $cart_item_key ) ), __( 'Remove this item', 'woocommerce' ) ), $cart_item_key );
 							?>
 						</td>
 
@@ -108,6 +110,7 @@ $woocommerce->show_messages();
 
 								echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key );
 							?>
+							<input type="submit" class="update-btn" name="update_cart" value="<?php _e( 'Update', 'woocommerce' ); ?>" /> 
 						</td>
 
 						<!-- Product subtotal -->
@@ -124,47 +127,40 @@ $woocommerce->show_messages();
 
 		do_action( 'woocommerce_cart_contents' );
 		?>
-		<tr>
-			<td colspan="6" class="actions">
-
-				<?php if ( $woocommerce->cart->coupons_enabled() ) { ?>
-					<div class="coupon">
-
-						<label for="coupon_code"><?php _e( 'Coupon', 'woocommerce' ); ?>:</label> <input name="coupon_code" class="input-text" id="coupon_code" value="" /> <input type="submit" class="button" name="apply_coupon" value="<?php _e( 'Apply Coupon', 'woocommerce' ); ?>" />
-
-						<?php do_action('woocommerce_cart_coupon'); ?>
-
-
-					</div>
-				<?php } ?>
-
-				<input type="submit" class="button" name="update_cart" value="<?php _e( 'Update Cart', 'woocommerce' ); ?>" /> 
-				<?php do_action('woocommerce_proceed_to_checkout'); ?>
-				<?php $woocommerce->nonce_field('cart') ?>
-				<input type="hidden" name="proceed" value="0" class="proceed" />
-			</td>
-		</tr>
-
+		
 		<?php do_action( 'woocommerce_after_cart_contents' ); ?>
 	</tbody>
 </table>
 
 <?php do_action( 'woocommerce_after_cart_table' ); ?>
-
+<?php do_action('woocommerce_proceed_to_checkout'); ?>
+<?php $woocommerce->nonce_field('cart') ?>
+<input type="hidden" name="proceed" value="0" class="proceed" />
 </form>
 
 <div class="cart-collaterals">
 
 	<?php do_action('woocommerce_cart_collaterals'); ?>
 
-	<?php woocommerce_shipping_calculator(); ?>
+	<div class="clearfix">
+		<div class="span seven break-on-tablet border-right">
+		<?php if ( $woocommerce->cart->coupons_enabled() ) { ?>
+			<div class="coupon">
 
-	<?php woocommerce_cart_totals(); ?>
+				<input type="text" name="coupon_code" id="coupon_code" placeholder="Enter gift voucher" value="" /><input type="submit" class="button alt small" name="apply_coupon" value="<?php _e( 'Apply', 'woocommerce' ); ?>" />
+				<?php do_action('woocommerce_cart_coupon'); ?>
+
+
+			</div>
+		<?php } ?>
+		<?php woocommerce_shipping_calculator(); ?>
+		</div>
+		<div class="span three break-on-tablet">
+			<?php woocommerce_cart_totals(); ?>
+			<p class="text-right">
+				<input type="submit" class="checkout-button button alt" name="proceed" value="<?php _e( 'Proceed to Checkout &rsaquo;', 'woocommerce' ); ?>" />
+			</p>
+		</div>
 </div>
 
-<footer class="cart-footer clearfix">
-	<?php if ($woocommerce->cart->cart_contents_count <= 24): ?>
-	<input type="submit" class="right checkout-button button alt" name="proceed" value="<?php _e( 'Proceed to Checkout &rarr;', 'woocommerce' ); ?>" />
-	<?php endif; ?>
-</footer>
 <?php do_action( 'woocommerce_after_cart' ); ?>
