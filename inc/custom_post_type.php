@@ -73,8 +73,6 @@ class Custom_Post_Type {
 		// Register the post type
 		register_post_type( $this->post_type_name, $args );
 		
-		//global $wp_rewrite;
-		//$wp_rewrite->flush_rules();
 	}
 	
 	/* Method to attach the taxonomy to the post type */
@@ -126,6 +124,7 @@ class Custom_Post_Type {
 						'public' 				=> true,
 						'show_ui' 				=> true,
 						'show_in_nav_menus' 	=> true,
+						'query_var'				=> true,
 						'_builtin' 				=> false,
 					),
 
@@ -133,7 +132,10 @@ class Custom_Post_Type {
 					$taxonomy_args
 
 				);
-
+				// print_r($taxonomy_name );
+				// print_r($post_type_name );
+				// print_r($args );
+				// die();
 				// Add the taxonomy to the post type
 				register_taxonomy( $taxonomy_name, $post_type_name, $args );
 			} else {

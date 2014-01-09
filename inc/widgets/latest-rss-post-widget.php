@@ -29,17 +29,17 @@ class Latest_RSS_Post extends WP_Widget {
         $content = file_get_contents($args['rss_url']);  
         if($content):
             $xml = new SimpleXmlElement($content);
+
             if($xml):
                 
                 echo $args['before_widget'];
                 $i = 0;
                 foreach($xml->channel->item as $entry) :
                     if($i == 0):
-                   // print_r($entry);
                 ?>
                     <a href="<?php echo $entry->link; ?>" class="post rss-post" >
                         <div class="featured-image">
-                            <?php //the_post_thumbnail('custom_medium', array('class' => 'thumbnail scale')); ?>
+                            <img src="<?php echo $entry->post_thumbnail->url; ?>" class="scale"/>
                         </div>
                         <div class="content">
                             <div class="inner">

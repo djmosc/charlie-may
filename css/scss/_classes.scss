@@ -1006,8 +1006,15 @@ blockquote {
 .newsletter_wrapper {
 	margin: 0 !important;
 
+
+
 	.newsletter {
 		position: relative;
+
+		.validation_error {
+			display: none;
+		}
+
 
 		.gform_body {
 			
@@ -1072,6 +1079,10 @@ blockquote {
 					background: #dbdbdb;
 				}
 			}
+
+			.gfield_description.validation_message {
+				margin-left: 0;
+			}
 		}
 	}
 }
@@ -1093,8 +1104,8 @@ blockquote {
 			letter-spacing: 2px;
 			position: relative;
 			&:hover {
-				background: #000;
-				color: #FFF;
+				color: #666;
+				background: #FFF;
 			}
 
 			&:before {
@@ -1132,7 +1143,8 @@ blockquote {
 		list-style: none;
 
 		li {
-			margin: 0.2em 0;
+			margin: 0.6em 0;
+			line-height: 1.2;
 			a {
 				text-transform: uppercase;
 				letter-spacing: 1px;
@@ -1308,12 +1320,13 @@ button {
 
 .white-btn {
 	display: inline-block;
-	@include novecento;
+	@include avenir;
 	@include font-size(10);
 	@include box-shadow(none);
 	text-transform: uppercase;
 	border: 2px solid #000;
 	background: #FFF;
+	letter-spacing: 2px;
 	padding: 0.8em 3em;
 
 	&:hover {
@@ -1324,11 +1337,12 @@ button {
 
 .black-btn {
 	display: inline-block;
-	@include novecento;
+	@include avenir;
 	@include font-size(10);
 	@include box-shadow(none);
 	text-transform: uppercase;
 	border: 2px solid #000;
+	letter-spacing: 2px;
 	background: #000;
 	padding: 0.8em 3em;
 	color: #FFF;

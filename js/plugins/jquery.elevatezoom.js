@@ -42,7 +42,6 @@ if ( typeof Object.create !== 'function' ) {
 
 
 				//Remove alt on hover
-				console.log(self.$elem);
 				self.$elem.parent().removeAttr('title').removeAttr('alt');
 
 				self.zoomImage = self.imageSrc;
@@ -1567,6 +1566,7 @@ if ( typeof Object.create !== 'function' ) {
 				//
 			},
 			closeAll: function(){
+				console.log(self)
 				if(self.zoomWindow){self.zoomWindow.hide();};
 				if(self.zoomLens){self.zoomLens.hide();}
 				if(self.zoomTint){self.zoomTint.hide();}

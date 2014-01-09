@@ -6,15 +6,17 @@
 			autoScroll: false,
 			scrollAll: false,
 			easing: 'easeInOutExpo',
-			resize: false
+			resize: false,
+			nextOnClick: false
 		};
 		options = $.extend({}, defaults, options);
 		
-		var scroller = $(this);
-		var currItem = $('.scroll-item:eq(0)', scroller);
+		var scroller = $(this),
+			currItem = $('.scroll-item:eq(0)', scroller);
 		if($('.scroll-item', scroller).hasClass('current')){
 			currItem = $('.scroll-item.current', scroller);
 		}
+
 		var speed = 600,
 			easing = options.easing,
 			canAutoScroll = true,
@@ -70,7 +72,7 @@
 							nextItem.addClass('current');
 							
 						} else {
-								
+							
 							$('.scroll-item:first', scroller).before($('.scroll-item:last', scroller));
 							$('.scroll-items-container', scroller).css({left: -scrollWidth + 'px' });
 							if($.fn.transition){
@@ -130,10 +132,8 @@
 				}
 				var scrollerPagination = $('.scroller-pagination');
 				$('li', scrollerPagination).removeClass('current');
-				$('li a[data-id='+nextItem.data('id')+']', scrollerPagination).parent().addClass('current');
-				if(options.resize){
-					scroller.animate({height: nextItem.outerHeight() + scrollerPagination.height()}, speed, easing);
-				}
+				$('li .btn[data-id='+nextItem.data('id')+']', scrollerPagination).parent().addClass('current');
+				if(options.resize) $('.scroller-mask', scroller).animate({height: nextItem.outerHeight()}, 500, 'easeInOutQuad');;
 				scroller.trigger('onChange', [nextItem]);
 				
 			}
@@ -175,11 +175,14 @@
 					});
 				}
 
-				// $('.scroll-item', scroller).on('click', function(e){
-				// 	e.preventDefault();
-				// 	gotoItem($(this).data('id'));	
-				// 	return false;
-				// });
+
+				if(options.nextOnClick) {
+					$('.scroll-item', scroller).on('click', function(e){
+						e.preventDefault();
+						gotoNextItem();	
+						return false;
+					});
+				}
 
 				$('.scroller-pagination .btn', scroller).on('click', function(e){
 					e.preventDefault();
@@ -209,6 +212,7 @@
 			} else {
 				$('.scroller-navigation', scroller).hide();
 				//$('.scroller-pagination', scroller).hide();
+				gotoItem(currItem.data('id'));
 			}
 
 			scroller.bind('refresh', refresh);
@@ -234,7 +238,7 @@
 		}
 
 		function resizeScroller(){
-			if(options.resize) scroller.css({height: currItem.outerHeight() + $('.scroller-pagination', scroller).height()}, 500, 'easeInOutQuad');
+			if(options.resize) $('.scroller-mask', scroller).css({height: currItem.outerHeight()}, 500, 'easeInOutQuad');
 		}
 		
 		init();

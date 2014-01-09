@@ -45,19 +45,18 @@ class Press extends WP_Widget {
 
         $args['postid'] = $instance['postid'];
 
-        echo $args['before_widget'];
         $options = array('posts_per_page' => 1, 'no_found_rows' => true, 'post_type' => array('press_release'), 'post_status' => 'publish', 'orderby' => 'menu_order', 'order' => 'ASC');
         if($args['postid']){
             $options['p'] = $args['postid'];
         }
 
         $custom_query = new WP_Query($options);
-        if ( $custom_query->have_posts() ) : ?>
-            <?php
+        if ( $custom_query->have_posts() ) :
+            echo $args['before_widget'];
             $i = 0;
             while ( $custom_query->have_posts() ) : $custom_query->the_post();
             ?>
-                <a href="<?php the_permalink(); ?>" class="post press-release" >
+                <a href="<?php echo get_permalink(get_field('press_page', 'options')); ?>" class="post press-release" >
                     <div class="featured-image">
                         <?php the_post_thumbnail('custom_medium', array('class' => 'thumbnail scale')); ?>
                     </div>
@@ -73,9 +72,10 @@ class Press extends WP_Widget {
             endwhile;
             wp_reset_postdata();
             wp_reset_query();
+            echo $args['after_widget'];
             ?>
         <?php endif; ?>
-        <?php echo $args['after_widget'];
+        <?php 
     }
 }
 

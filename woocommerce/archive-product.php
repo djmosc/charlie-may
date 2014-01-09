@@ -46,9 +46,7 @@ get_header('shop'); ?>
 				<div class="span alpha five">
 					    <img src="<?php echo $image[0]; ?>" alt="" class="scale" />
 				</div>
-				<div class="span five">
-					<h3 class="page-title text-center"><?php woocommerce_page_title(); ?></h3>
-				</div>
+				<h3 class="page-title text-center has-image"><?php woocommerce_page_title(); ?></h3>
 				<?php else: ?>
 				<h3 class="page-title text-center"><?php woocommerce_page_title(); ?></h3>
 				<?php endif; ?>

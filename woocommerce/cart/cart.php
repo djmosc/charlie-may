@@ -145,13 +145,10 @@ $woocommerce->show_messages();
 	<div class="clearfix">
 		<div class="span seven break-on-tablet border-right">
 		<?php if ( $woocommerce->cart->coupons_enabled() ) { ?>
-			<div class="coupon">
-
+			<form class="coupon" action="<?php echo esc_url( $woocommerce->cart->get_cart_url() ); ?>" method="post">
 				<input type="text" name="coupon_code" id="coupon_code" placeholder="Enter gift voucher" value="" /><input type="submit" class="button alt small" name="apply_coupon" value="<?php _e( 'Apply', 'woocommerce' ); ?>" />
 				<?php do_action('woocommerce_cart_coupon'); ?>
-
-
-			</div>
+			</form>
 		<?php } ?>
 		<?php woocommerce_shipping_calculator(); ?>
 		</div>

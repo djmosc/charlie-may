@@ -13,7 +13,7 @@ global $post, $woocommerce, $product;
 wp_enqueue_script('zoom');
 ?>
 <div class="images">
-	<div class="scroller" data-resize="true">
+	<div class="scroller" data-resize="true" data-next-on-click="true" data-on-change="onProductScrollerChange">
 		<div class="scroller-mask">
 
 		
@@ -39,12 +39,12 @@ wp_enqueue_script('zoom');
 				if ( ! $image_link )
 					continue;
 
-				$image       = wp_get_attachment_image( $attachment_id, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ), array('data-zoom-image' => $image_link) );
+				$image       = wp_get_attachment_image( $attachment_id, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ), false, array('data-zoom-image' => $image_link) );
 				$image_class = esc_attr( implode( ' ', $classes ) );
 				$image_title = esc_attr( get_the_title( $attachment_id ) );
 				?>
 				<div class="scroll-item" data-id="<?php echo $attachment_id; ?>">
-				<?php echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<a href="%s" class="%s" title="%s" rel="prettyPhoto[product-gallery]"><div class="enlarge"><i class="icon-search"></i>view larger image</div>%s</a>', $image_link, $image_class, '', $image ), $attachment_id, $post->ID, $image_class ); ?>
+				<?php echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<a href="%s" class="%s" title="%s" ><div class="enlarge"><i class="icon-search"></i>view larger image</div>%s</a>', $image_link, $image_class, '', $image ), $attachment_id, $post->ID, $image_class ); ?>
 				</div>
 				<?php $loop++;
 			}
@@ -79,13 +79,13 @@ wp_enqueue_script('zoom');
 						continue;
 
 					$show_thumbnail = false;
-					$image       = wp_get_attachment_image( $attachment_id, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ), array('data-zoom-image' => $image_link) );
+					$image       = wp_get_attachment_image( $attachment_id, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ), false, array('data-zoom-image' => $image_link) );
 					$image_class = esc_attr( implode( ' ', $classes ) );
 					$image_title = esc_attr( get_the_title( $attachment_id ) );
 					
 					?>
 					<div class="scroll-item <?php if($curr_variation == $variation['attributes'][0]) echo 'current'; ?>" data-id="<?php echo $variation['variation_id']; ?>">
-					<?php echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<a href="%s" class="%s" title="%s" rel="prettyPhoto[product-gallery]"><div class="enlarge"><i class="icon-search"></i>View larger image</div>%s</a>', $image_link, $image_class, '', $image ), $attachment_id, $post->ID, $image_class ); ?>
+					<?php echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<a href="%s" class="%s" title="%s" ><div class="enlarge"><i class="icon-search"></i>View larger image</div>%s</a>', $image_link, $image_class, '', $image ), $attachment_id, $post->ID, $image_class ); ?>
 					</div>
 					<?php $loop++;
 				}

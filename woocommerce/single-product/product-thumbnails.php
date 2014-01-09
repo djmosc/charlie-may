@@ -21,7 +21,7 @@ global $post, $product, $woocommerce;
 
 		foreach ( $attachment_ids as $attachment_id ) {
 
-			$classes = array('overlay-btn' );
+			$classes = array('overlay-btn', 'btn' );
 
 			if ( $loop == 0 || $loop % $columns == 0 )
 				$classes[] = 'first';
@@ -52,7 +52,7 @@ global $post, $product, $woocommerce;
 			foreach($variations as $variation){
 				if(isset($variation['image_link'])){
 
-					$classes = array( 'overlay-btn');
+					$classes = array( 'overlay-btn', 'btn');
 					$image_url = $variation['image_link'];
 					$attachment_id = $wpdb->get_var( "SELECT ID FROM {$wpdb->posts} WHERE guid='$image_url'");
 					$image_link = wp_get_attachment_url( $attachment_id );
@@ -81,7 +81,7 @@ global $post, $product, $woocommerce;
 
 			?>
 			<li>
-				<?php echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<a href="%s" itemprop="image" class="overlay-btn" title="%s" data-id="'.get_post_thumbnail_id().'" >%s</a>', $image_link, $image_title, $image ), $post->ID ); ?>
+				<?php echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<a href="%s" itemprop="image" class="overlay-btn btn" title="%s" data-id="'.get_post_thumbnail_id().'" >%s</a>', $image_link, $image_title, $image ), $post->ID ); ?>
 			</li>
 		<?php
 	}

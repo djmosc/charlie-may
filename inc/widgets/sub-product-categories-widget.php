@@ -18,7 +18,6 @@ class Sub_Product_Categories extends WP_Widget {
 			return $new_instance;
 	}
 	function widget($args, $instance) {
-		$args['title'] = $instance['title'];
 		$args['category_id'] = $instance['category_id'];
 		$category = get_term($args['category_id'], 'product_cat');
 		echo $args['before_widget'] . $args['before_title'];
@@ -30,14 +29,16 @@ class Sub_Product_Categories extends WP_Widget {
 		$cat_args['child_of'] = (int)$args['category_id'];
 		$cat_args['taxonomy'] = 'product_cat';
 		$cat_args['hide_empty'] = 0;
-		echo '<ul class="product-cateogires">';
-		?>
-		<li>
-			<a href="<?php echo get_term_link($category); ?>"><?php _e("View all", THEME_NAME); ?></a>
-		</li>
-		<?php
-		wp_list_categories($cat_args);
-		echo '</ul>';
+		if(get_terms($cat_args['taxonomy'], $cat_args)):
+			echo '<ul class="product-cateogires">';
+			?>
+			<li>
+				<a href="<?php echo get_term_link($category); ?>"><?php _e("View all", THEME_NAME); ?></a>
+			</li>
+			<?php
+			wp_list_categories($cat_args);
+			echo '</ul>';
+		endif;
 		echo $args['after_widget'];
 	}
 }

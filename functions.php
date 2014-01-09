@@ -113,16 +113,18 @@ endif; // charlie_may_setup
 
 add_action( 'after_setup_theme', 'charlie_may_setup' );
 
-add_action('init', 'set_custom_post_types');
+add_action('init', 'set_custom_post_types', 30);
 
 if(!function_exists('set_custom_post_types')) {
 	function set_custom_post_types(){
 		require( get_template_directory() . '/inc/custom_post_type.php' );
 		if(function_exists('get_field')) {
 			$collections_page = get_field('collections_page', 'options');
+			$collections_page_uri = get_page_uri($collections_page->ID);
+
 			$collection = new Custom_Post_Type( 'Collection', 
 		 		array(
-		 			'rewrite' => array( 'with_front' => false, 'slug' => get_page_uri($collections_page->ID) ),
+		 			'rewrite' => array( 'with_front' => false, 'slug' => $collections_page_uri ),
 		 			'capability_type' => 'post',
 		 		 	'publicly_queryable' => true,
 		   			'has_archive' => true, 
@@ -134,7 +136,10 @@ if(!function_exists('set_custom_post_types')) {
 		   		)
 		   	);
 
-		   	$collection->add_taxonomy('Season', array('hierarchical' => true), array('plural' => 'Seasons'));
+		   	$collection->add_taxonomy('Season', array(
+		   		'hierarchical' => true,
+		   		'rewrite' => array('slug' => 'season' )
+		   	), array('plural' => 'Seasons'));
 		
 			$press_page = get_field('press_page', 'options');
 			$press_release = new Custom_Post_Type( 'Press Release', 
@@ -147,13 +152,10 @@ if(!function_exists('set_custom_post_types')) {
 		    		'exclude_from_search' => true,
 		    		'menu_position' => null,
 		    		'supports' => array('title', 'thumbnail', 'editor', 'page-attributes'),
-		    		'plural' => 'Press Releases'
+		    		'plural' => 'Press'
 		   		)
 		   	);
-
 		}
-
-
 	}
 }
 
@@ -192,7 +194,7 @@ function charlie_may_widgets_init() {
 	register_sidebar( array(
 		'name' => __( 'Homepage Content', THEME_NAME ),
 		'id' => 'homepage_content',
-		'before_widget' => '<aside id="%1$s" class="widget span one-third equal-height %2$s">',
+		'before_widget' => '<aside id="%1$s" class="widget span one-third %2$s">',
 		'after_widget' => '</aside>',
 		'before_title' => '<h5 class="widget-title">',
 		'after_title' => '</h5>'
@@ -803,4 +805,35 @@ if ( ! function_exists( 'custom_sale_flash' )) {
 		return '<span class="onsale">'.__( 'Sale', 'woocommerce' ).'</span>';
 	}
 }
+
+if(!function_exists('custom_posts_per_page')){
+
+	function custom_posts_per_page($query){
+		if(isset($query->query_vars['post_type'])){
+		    switch ( $query->query_vars['post_type'] ) {
+		        case 'collection': 
+		        case 'press_release': 
+		            $query->query_vars['posts_per_page'] = -1;
+		            $query->query_vars['orderby'] = 'menu_order';
+		            $query->query_vars['order'] = 'DESC';
+		            break;
+		        default:
+		            break;
+		    }
+
+		    return $query;
+		}
+	}
+}
+
+add_filter( 'pre_get_posts', 'custom_posts_per_page' );
+
+if(!function_exists('custom_add_to_cart_message')){
+
+	function custom_add_to_cart_message(){
+		return '';
+	}
+}
+
+add_filter('woocommerce_add_to_cart_message', 'custom_add_to_cart_message');
 
