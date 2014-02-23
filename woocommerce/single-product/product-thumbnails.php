@@ -84,15 +84,6 @@ global $post, $product, $woocommerce;
 				<?php echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<a href="%s" itemprop="image" class="overlay-btn btn" title="%s" data-id="'.get_post_thumbnail_id().'" >%s</a>', $image_link, $image_title, $image ), $post->ID ); ?>
 			</li>
 		<?php
-	}
+	}?>
 
-	$threesixty_images = get_field('360_images');
-	if($threesixty_images):
-	?>
-	<li>
-		<a href="http://localhost/charlie_may/website/build/shop/the-veteran/" data-id="360" class="overlay-btn">
-			<img src="<?php echo get_template_directory_uri(); ?>/images/misc/360_view.jpg" />
-		</a>
-	</li>
-	<?php endif; ?>
 </ul>

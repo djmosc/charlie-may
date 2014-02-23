@@ -11,10 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 global $product, $woocommerce_loop;
 
-$related = $product->get_related();
-$upsells = $product->get_upsells();
+$related = $product->get_related( $posts_per_page );
 
-if ( sizeof( $related ) == 0 || sizeof( $upsells ) > 0 ) return;
+if ( sizeof( $related ) == 0 ) return;
 
 $args = apply_filters('woocommerce_related_products_args', array(
 	'post_type'				=> 'product',
@@ -28,7 +27,7 @@ $args = apply_filters('woocommerce_related_products_args', array(
 
 $products = new WP_Query( $args );
 
-$woocommerce_loop['columns'] 	= $columns;
+$woocommerce_loop['columns'] = $columns;
 
 if ( $products->have_posts() ) : ?>
 
@@ -40,7 +39,7 @@ if ( $products->have_posts() ) : ?>
 
 			<?php while ( $products->have_posts() ) : $products->the_post(); ?>
 
-				<?php woocommerce_get_template_part( 'content', 'product' ); ?>
+				<?php wc_get_template_part( 'content', 'product' ); ?>
 
 			<?php endwhile; // end of the loop. ?>
 

@@ -31,7 +31,6 @@ if ( $wp_query->max_num_pages <= 1 )
 		foreach($pagination as $link){
 			echo $link.' ';
 		}
-	//	print_r($pagination);
 	?>
 	/ <a href="?view_all"><?php _e("View All", THEME_NAME); ?></a>
 </nav>

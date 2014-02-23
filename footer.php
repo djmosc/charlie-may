@@ -55,6 +55,7 @@
 			</div>
 		</div>
 		<div class="bottom">
+			<div class="container inner">
 				<div class="break-on-tablet span three alpha">
 					<ul class="social-links">
 						<li>

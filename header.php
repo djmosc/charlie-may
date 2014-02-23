@@ -25,35 +25,7 @@
 		var themeUrl = '<?php bloginfo( 'template_url' ); ?>';
 		var baseUrl = '<?php bloginfo( 'url' ); ?>';
 	</script>
-    <?php
-
-	if ( ! is_admin() ) {
-        wp_deregister_script('jquery');
-        wp_register_script('jquery', get_template_directory_uri().'/js/libs/jquery.min.js', false, '1.9.1');
-        wp_enqueue_script('jquery');
-    }
-	
-	function load_assets() {
-
-		wp_enqueue_style('style', get_template_directory_uri().'/css/style.css');
-		wp_register_style('fancybox', get_template_directory_uri().'/css/jquery.fancybox.css');
-
-		wp_enqueue_script('modernizr', get_template_directory_uri().'/js/libs/modernizr.min.js');
-		wp_enqueue_script('jquery', get_template_directory_uri().'/js/libs/jquery.min.js');
-		wp_enqueue_script('easing', get_template_directory_uri().'/js/plugins/jquery.easing.js', array('jquery'), '', true);
-		wp_enqueue_script('scroller', get_template_directory_uri().'/js/plugins/jquery.scroller.js', array('jquery'), '', true);
-		wp_enqueue_script('actual', get_template_directory_uri().'/js/plugins/jquery.actual.js', array('jquery'), '', true);
-		wp_enqueue_script('imagesloaded', get_template_directory_uri().'/js/plugins/jquery.imagesloaded.js', array('jquery'), '', true);
-		wp_enqueue_script('transit', get_template_directory_uri().'/js/plugins/jquery.transit.js', array('jquery'), '', true);
-		wp_register_script('fancybox', get_template_directory_uri().'/js/plugins/jquery.fancybox.min.js', array('jquery'), '', true);
-		wp_register_script('zoom', get_template_directory_uri().'/js/plugins/jquery.elevatezoom.js', array('jquery'), '', true);
-		wp_enqueue_script('main', get_template_directory_uri().'/js/main.js', array('jquery'), '', true);
-
-	}
-
-	add_action('wp_enqueue_scripts', 'load_assets');
-	wp_head();
-?>
+    <?php wp_head(); ?>
 
 </head>
 <body <?php body_class(); ?>>
@@ -74,20 +46,19 @@
 						</a>
 					</li>
 					<?php endif; ?>
-					<?php global $woocommerce; ?>
 					<li class="cart">
 						<a href="<?php echo get_permalink(get_field('cart_page', 'options')); ?>" class="cart-btn" ><?php echo get_the_title(get_field('cart_page', 'options')); ?></a>
-						&nbsp;&nbsp;<a class="items" href="<?php echo get_permalink(get_field('cart_page', 'options')); ?>"><?php echo sprintf(_n('%d', '%d', $woocommerce->cart->cart_contents_count, 'woothemes'), $woocommerce->cart->cart_contents_count);?></a>
-						<?php if ( sizeof( $woocommerce->cart->get_cart() ) > 0 && isset($_GET['added-to-cart'])) :?>
+						&nbsp;&nbsp;<a class="items" href="<?php echo get_permalink(get_field('cart_page', 'options')); ?>"><?php echo sprintf(_n('%d', '%d', WC()->cart->cart_contents_count, 'woothemes'), WC()->cart->cart_contents_count);?></a>
+						<?php if (isset($_GET['added-to-cart'])) :?>
 						<div class="added-to-cart">
 							<button class="close-btn">&times;</button>
 							<header class="header">
 								<h5 class="uppercase text-center novecento no-margin"><?php _e("Recently Added", THEME_NAME); ?></h5>
 							</header>
 							<div class="products">
-							<?php foreach ( $woocommerce->cart->get_cart() as $cart_item_key => $values ) :
-								$_product = $values['data'];
-									if ( $_product->exists() && $values['quantity'] > 0  && $values['product_id'] == $_GET['added-to-cart']) : ?>
+							<?php foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) :
+								$_product = $cart_item['data'];
+									if ( $_product->exists() && $cart_item['quantity'] > 0  && $cart_item['product_id'] == $_GET['added-to-cart']) : ?>
 								<div class="product clearfix">
 									<div class="span three thumbnail alpha">
 									<?php
@@ -96,7 +67,7 @@
 									if ( ! $_product->is_visible() || ( ! empty( $_product->variation_id ) && ! $_product->parent_is_visible() ) )
 										echo $thumbnail;
 									else
-										printf('<a href="%s" class="overlay-btn">%s</a>', esc_url( get_permalink( $values['product_id'] ) ), $thumbnail );
+										printf('<a href="%s" class="overlay-btn">%s</a>', esc_url( get_permalink( $cart_item['product_id'] ) ), $thumbnail );
 								?>
 									</div>
 									<div class="span seven">
@@ -104,9 +75,9 @@
 											if ( ! $_product->is_visible() || ( ! empty( $_product->variation_id ) && ! $_product->parent_is_visible() ) )
 												echo $_product->get_title();
 											else
-												printf('<a href="%s">%s</a>', esc_url( get_permalink(  $values['product_id'] ) ), $_product->get_title() );
+												printf('<a href="%s">%s</a>', esc_url( get_permalink(  $cart_item['product_id'] ) ), $_product->get_title() );
 										?></h5>
-										<?php echo $woocommerce->cart->get_item_data( $values ); ?>
+										<?php echo WC()->cart->get_item_data( $cart_item ); ?>
 
 										<p class="price"><?php 
 										$product_price = get_option('woocommerce_tax_display_cart') == 'excl' ? $_product->get_price_excluding_tax() : $_product->get_price_including_tax();
@@ -137,7 +108,7 @@
 				<div class="navigation-container">
 					<a href="<?php echo get_permalink(get_field('cart_page', 'options')); ?>" class="cart-btn" >
 						<?php echo get_the_title(get_field('cart_page', 'options')); ?>:
-						<strong class="items"><?php echo sprintf(_n('%d', '%d', $woocommerce->cart->cart_contents_count, 'woothemes'), $woocommerce->cart->cart_contents_count);?></strong>
+						<strong class="items"><?php echo sprintf(_n('%d', '%d', WC()->cart->cart_contents_count, 'woothemes'), WC()->cart->cart_contents_count);?></strong>
 					</a>
 					<button class="mobile-navigation-btn uppercase">menu <i aria-hidden="true" class="icon-arrow-down tiny"></i></button>
 					<nav role="navigation" class="site-navigation main-navigation">

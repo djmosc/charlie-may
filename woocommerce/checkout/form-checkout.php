@@ -17,7 +17,7 @@ global $woocommerce;
 	<li><?php _e('Confirmation', THEME_NAME); ?></li>
 </ul>
 <?php
-$woocommerce->show_messages();
+wc_print_notices();
 ?>
 <div class="col2-set">
 <?php do_action( 'woocommerce_before_checkout_form', $checkout ); ?>
@@ -30,7 +30,7 @@ if ( ! $checkout->enable_signup && ! $checkout->enable_guest_checkout && ! is_us
 }
 
 // filter hook for include new pages inside the payment method
-$get_checkout_url = apply_filters( 'woocommerce_get_checkout_url', $woocommerce->cart->get_checkout_url() ); ?>
+$get_checkout_url = apply_filters( 'woocommerce_get_checkout_url', WC()->cart->get_checkout_url() ); ?>
 
 <form name="checkout" method="post" class="checkout" action="<?php echo esc_url( $get_checkout_url ); ?>">
 

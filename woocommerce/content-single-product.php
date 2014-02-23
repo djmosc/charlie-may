@@ -16,22 +16,27 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 	/**
 	 * woocommerce_before_single_product hook
 	 *
-	 * @hooked woocommerce_show_messages - 10
+	 * @hooked wc_print_notices - 10
 	 */
 	 do_action( 'woocommerce_before_single_product' );
+
+	 if ( post_password_required() ) {
+	 	echo get_the_password_form();
+	 	return;
+	 }
 ?>
 
-<div itemscope itemtype="http://schema.org/Product" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<div class="clearfix">
-		<?php
-			/**
-			 * woocommerce_show_product_images hook
-			 *
-			 * @hooked woocommerce_show_product_sale_flash - 10
-			 * @hooked woocommerce_show_product_images - 20
-			 */
-			do_action( 'woocommerce_before_single_product_summary' );
-		?>
+<div itemscope itemtype="<?php echo woocommerce_get_product_schema(); ?>" id="product-<?php the_ID(); ?>" <?php post_class('clearfix'); ?>>
+
+	<?php
+		/**
+		 * woocommerce_before_single_product_summary hook
+		 *
+		 * @hooked woocommerce_show_product_sale_flash - 10
+		 * @hooked woocommerce_show_product_images - 20
+		 */
+		do_action( 'woocommerce_before_single_product_summary' );
+	?>
 
 		<div class="summary entry-summary">
 			<div class="product-info">
@@ -52,7 +57,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 			<?php do_action( 'single_product_additional_info' ); ?>
 
 		</div><!-- .summary -->
-	</div>
+
+</div>
 	<?php
 		/**
 		 * woocommerce_after_single_product_summary hook
@@ -60,9 +66,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		 * @hooked woocommerce_output_product_data_tabs - 10
 		 * @hooked woocommerce_output_related_products - 20
 		 */
-		do_action( 'woocommerce_after_single_product_summary', -1, 5 );
+		do_action( 'woocommerce_after_single_product_summary' );
 	?>
 
-</div><!-- #product-<?php the_ID(); ?> -->
 
 <?php do_action( 'woocommerce_after_single_product' ); ?>

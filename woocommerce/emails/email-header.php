@@ -13,12 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 $bg 		= get_option( 'woocommerce_email_background_color' );
 $body		= get_option( 'woocommerce_email_body_background_color' );
 $base 		= get_option( 'woocommerce_email_base_color' );
-$base_text 	= woocommerce_light_or_dark( $base, '#890a0a', '#ffffff' );
+$base_text 	= wc_light_or_dark( $base, '#890a0a', '#ffffff' );
 $text 		= get_option( 'woocommerce_email_text_color' );
 
-$bg_darker_10 = woocommerce_hex_darker( $bg, 10 );
-$base_lighter_20 = woocommerce_hex_lighter( $base, 20 );
-$text_lighter_20 = woocommerce_hex_lighter( $text, 20 );
+$bg_darker_10 = wc_hex_darker( $bg, 10 );
+$base_lighter_20 = wc_hex_lighter( $base, 20 );
+$text_lighter_20 = wc_hex_lighter( $text, 20 );
 
 // For gmail compatibility, including CSS styles in head/body are stripped out therefore styles need to be inline. These variables contain rules which are added to the template inline. !important; is a gmail hack to prevent styles being stripped if it doesn't like something.
 $wrapper = "
@@ -78,6 +78,7 @@ $header_content_h1 = "
 	background: url(". get_bloginfo('template_url')."/images/logos/charlie_may_email.jpg) no-repeat 24px center;
 ";
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />

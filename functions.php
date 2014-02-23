@@ -158,6 +158,33 @@ if(!function_exists('set_custom_post_types')) {
 		}
 	}
 }
+	
+function load_assets() {
+
+	
+	if ( ! is_admin() ) {
+	    wp_deregister_script('jquery');
+	    wp_register_script('jquery', get_template_directory_uri().'/js/libs/jquery.min.js', false, '1.9.1');
+	    wp_enqueue_script('jquery');
+	}
+
+
+	wp_enqueue_style('style', get_template_directory_uri().'/css/style.css');
+
+	wp_enqueue_script('modernizr', get_template_directory_uri().'/js/libs/modernizr.min.js');
+	wp_enqueue_script('jquery', get_template_directory_uri().'/js/libs/jquery.min.js');
+	wp_enqueue_script('easing', get_template_directory_uri().'/js/plugins/jquery.easing.js', array('jquery'), '', true);
+	wp_enqueue_script('scroller', get_template_directory_uri().'/js/plugins/jquery.scroller.js', array('jquery'), '', true);
+	wp_enqueue_script('actual', get_template_directory_uri().'/js/plugins/jquery.actual.js', array('jquery'), '', true);
+	wp_enqueue_script('imagesloaded', get_template_directory_uri().'/js/plugins/jquery.imagesloaded.js', array('jquery'), '', true);
+	wp_enqueue_script('transit', get_template_directory_uri().'/js/plugins/jquery.transit.js', array('jquery'), '', true);
+	wp_register_script('fancybox', get_template_directory_uri().'/js/plugins/jquery.fancybox.min.js', array('jquery'), '', true);
+	wp_register_script('zoom', get_template_directory_uri().'/js/plugins/jquery.elevatezoom.js', array('jquery'), '', true);
+	wp_enqueue_script('main', get_template_directory_uri().'/js/main.js', array('jquery'), '', true);
+
+}
+
+add_action('wp_enqueue_scripts', 'load_assets');
 
 
 /**
@@ -166,13 +193,12 @@ if(!function_exists('set_custom_post_types')) {
  * @since charlie_may 1.0
  */
 function charlie_may_widgets_init() {
-	unregister_widget( 'WC_Widget_Featured_Products' );
 
 	require( get_template_directory() . '/inc/widgets/press-widget.php' );
 
 	require( get_template_directory() . '/inc/widgets/latest-rss-post-widget.php' );
 
-	require( get_template_directory() . '/inc/widgets/featured-products-widget.php' );
+	require( get_template_directory() . '/inc/widgets/woocommerce-products-widget.php' );
 
 	require( get_template_directory() . '/inc/widgets/sub-product-categories-widget.php' );
 
@@ -586,14 +612,14 @@ add_action( 'woocommerce_after_single_product_summary', 'custom_related_products
 if ( ! function_exists( 'custom_related_products' ) ) {
 
 	function custom_related_products() {
-		woocommerce_related_products( -1, 5 );
+		woocommerce_related_products();
 	}
 }
 
 if ( ! function_exists( 'custom_upsell_display' ) ) {
 
 	function custom_upsell_display() {
-		woocommerce_upsell_display( -1, 5 );
+		woocommerce_upsell_display();
 	}
 }
 
@@ -617,7 +643,7 @@ add_filter( 'woocommerce_product_thumbnails_columns', 'custom_product_thumbnails
 
 if ( ! function_exists( 'custom_product_thumbnails_columns' ) ) {
 
-	function custom_product_thumbnails_columns(   ) {
+	function custom_product_thumbnails_columns() {
 		return 6;
 	}
 }
